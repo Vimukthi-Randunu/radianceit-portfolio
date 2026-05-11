@@ -693,7 +693,7 @@
 <body>
 
 <nav>
-  <a href="#" class="nav-brand">Radiance<span>IT</span></a>
+  <a href="#hero" class="nav-brand">Radiance<span>IT</span></a>
   <div class="nav-links">
     <a href="#services">Services</a>
     <a href="#projects">Work</a>
@@ -963,7 +963,11 @@ let currentPage = 0;
 
 function updatePages() {
   pages.forEach((page, index) => {
-    page.classList.toggle('active', index === currentPage);
+    if (index === currentPage) {
+      page.style.display = 'block';
+    } else {
+      page.style.display = 'none';
+    }
   });
 
   prevBtn.style.opacity = currentPage === 0 ? '0.4' : '1';
@@ -972,14 +976,18 @@ function updatePages() {
     currentPage === pages.length - 1 ? '0.4' : '1';
 }
 
-nextBtn.addEventListener('click', () => {
+nextBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+
   if (currentPage < pages.length - 1) {
     currentPage++;
     updatePages();
   }
 });
 
-prevBtn.addEventListener('click', () => {
+prevBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+
   if (currentPage > 0) {
     currentPage--;
     updatePages();
