@@ -457,6 +457,40 @@
 
   .project-link:hover { gap: 8px; }
 
+  .projects-page {
+  display: none;
+}
+
+.projects-page.active {
+  display: block;
+}
+
+.projects-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.slider-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(79,142,247,0.12);
+  color: #60a5fa;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.slider-btn:hover {
+  background: #2563eb;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(37,99,235,0.35);
+}
+
 .projects-nav {
   display: flex;
   justify-content: center;
@@ -752,35 +786,43 @@
       </div>
     </div>
 
+    <div class="projects-pages">
 
-        <!-- Project 7 -->
-        <div class="project-card">
-          <div class="project-top">
-            <div class="project-num">Project 07</div>
-            <div class="project-tags">
-              <span class="tag accent">Docker</span>
-              <span class="tag accent">GitHub Actions</span>
-              <span class="tag">Gunicorn</span>
-              <span class="tag">AWS EC2</span>
-            </div>
-          </div>
-          <h3>Client Codebase DevOps Transformation</h3>
-          <p class="project-problem">
-            Problem: The client application had no deployment infrastructure — deployments were manual, unsafe, and impossible to scale or recover automatically.
-          </p>
-          <ul class="project-bullets">
-            <li>Containerized an existing Flask inventory management system with Docker and production-ready Gunicorn deployment</li>
-            <li>Built a four-stage CI/CD pipeline with automated testing, Docker image versioning, staging deployment, and manual production approval gates</li>
-            <li>Implemented health checks, automatic rollback, persistent SQLite volumes, and isolated staging/production EC2 environments</li>
-          </ul>
-          <a href="https://github.com/Vimukthi-Randunu/PROJECT-7-REPO-LINK" target="_blank" class="project-link">
-            View on GitHub →
-          </a>
+  <!-- PAGE 1 -->
+  <div class="projects-page active">
+
+    <!-- Project 07 -->
+    <div class="project-card">
+      <div class="project-top">
+        <div class="project-num">Project 07</div>
+        <div class="project-tags">
+          <span class="tag accent">Docker</span>
+          <span class="tag accent">GitHub Actions</span>
+          <span class="tag">Gunicorn</span>
+          <span class="tag">AWS EC2</span>
         </div>
+      </div>
 
-        <!-- Project 6 -->
-        <div class="project-card">
-          <div class="project-top">
+      <h3>Client Codebase DevOps Transformation</h3>
+
+      <p class="project-problem">
+        Problem: The client application had no deployment infrastructure — deployments were manual, unsafe, and impossible to scale or recover automatically.
+      </p>
+
+      <ul class="project-bullets">
+        <li>Containerized an existing Flask inventory management system with Docker and production-ready Gunicorn deployment</li>
+        <li>Built a four-stage CI/CD pipeline with automated testing, Docker image versioning, staging deployment, and manual production approval gates</li>
+        <li>Implemented health checks, automatic rollback, persistent SQLite volumes, and isolated staging/production EC2 environments</li>
+      </ul>
+
+      <a href="https://github.com/Vimukthi-Randunu/Smart_ref" target="_blank" class="project-link">
+        View on GitHub →
+      </a>
+    </div>
+
+    <!-- Project 06 -->
+    <div class="project-card">
+      <div class="project-top">
             <div class="project-num">Project 06</div>
             <div class="project-tags">
               <span class="tag amber">Staging</span>
@@ -797,11 +839,11 @@
             <li>Per-environment secrets via GitHub Environments — staging and production have completely isolated credentials</li>
           </ul>
           <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-6" target="_blank" class="project-link">View on GitHub →</a>
-        </div>
+    </div>
 
-        <!-- Project 5 -->
-        <div class="project-card">
-          <div class="project-top">
+    <!-- Project 05 -->
+    <div class="project-card">
+      <div class="project-top">
             <div class="project-num">Project 05</div>
             <div class="project-tags">
               <span class="tag green">Docker Compose</span>
@@ -818,11 +860,16 @@
             <li>All secrets injected at runtime via environment variables, never stored in code or images</li>
           </ul>
           <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-5" target="_blank" class="project-link">View on GitHub →</a>
-        </div>
+    </div>
 
-        <!-- Project 4 -->
-        <div class="project-card">
-          <div class="project-top">
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="projects-page">
+
+    <!-- Project 04 -->
+    <div class="project-card">
+      <div class="project-top">
             <div class="project-num">Project 04</div>
             <div class="project-tags">
               <span class="tag accent">Docker</span>
@@ -839,18 +886,17 @@
             <li>Automatic rollback to previous image by SHA if health check fails after deploy</li>
           </ul>
           <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-4" target="_blank" class="project-link">View on GitHub →</a>
-        </div>
-
-    <div class="projects-nav">
-      <button class="slider-btn" id="projectsPrev">
-        ←
-      </button>
-
-      <button class="slider-btn" id="projectsNext">
-        →
-      </button>
     </div>
 
+  </div>
+
+</div>
+
+<div class="projects-nav">
+  <button class="slider-btn" id="projectsPrev">←</button>
+  <button class="slider-btn" id="projectsNext">→</button>
+</div>
+       
   </div>
 </section>
 
@@ -909,52 +955,38 @@
 </footer>
 
 <script>
-const slider = document.getElementById('projectsSlider');
+const pages = document.querySelectorAll('.projects-page');
 const nextBtn = document.getElementById('projectsNext');
 const prevBtn = document.getElementById('projectsPrev');
 
-let currentIndex = 0;
+let currentPage = 0;
 
-function getCardsPerView() {
-  if (window.innerWidth <= 768) return 1;
-  if (window.innerWidth <= 1100) return 2;
-  return 3;
-}
+function updatePages() {
+  pages.forEach((page, index) => {
+    page.classList.toggle('active', index === currentPage);
+  });
 
-function updateSlider() {
-  const cardsPerView = getCardsPerView();
-  const cardWidth = slider.querySelector('.project-card').offsetWidth;
-  const gap = 20;
+  prevBtn.style.opacity = currentPage === 0 ? '0.4' : '1';
 
-  slider.style.transform =
-    `translateX(-${currentIndex * (cardWidth + gap)}px)`;
-
-  const maxIndex = slider.children.length - cardsPerView;
-
-  prevBtn.style.opacity = currentIndex === 0 ? '0.4' : '1';
-  nextBtn.style.opacity = currentIndex >= maxIndex ? '0.4' : '1';
+  nextBtn.style.opacity =
+    currentPage === pages.length - 1 ? '0.4' : '1';
 }
 
 nextBtn.addEventListener('click', () => {
-  const cardsPerView = getCardsPerView();
-  const maxIndex = slider.children.length - cardsPerView;
-
-  if (currentIndex < maxIndex) {
-    currentIndex++;
-    updateSlider();
+  if (currentPage < pages.length - 1) {
+    currentPage++;
+    updatePages();
   }
 });
 
 prevBtn.addEventListener('click', () => {
-  if (currentIndex > 0) {
-    currentIndex--;
-    updateSlider();
+  if (currentPage > 0) {
+    currentPage--;
+    updatePages();
   }
 });
 
-window.addEventListener('resize', updateSlider);
-
-updateSlider();
+updatePages();
 </script>
 
 </body>
