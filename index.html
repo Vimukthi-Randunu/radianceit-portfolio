@@ -457,6 +457,61 @@
 
   .project-link:hover { gap: 8px; }
 
+.projects-slider-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.projects-slider {
+  display: flex;
+  gap: 1.25rem;
+  transition: transform 0.45s ease;
+}
+
+.project-card {
+  min-width: calc((100% - 2.5rem) / 3);
+  flex-shrink: 0;
+}
+
+.projects-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.slider-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(79,142,247,0.12);
+  color: #60a5fa;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(10px);
+}
+
+.slider-btn:hover {
+  background: #2563eb;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(37, 99, 235, 0.35);
+}
+
+@media (max-width: 1100px) {
+  .project-card {
+    min-width: calc((100% - 1.25rem) / 2);
+  }
+}
+
+@media (max-width: 768px) {
+  .project-card {
+    min-width: 100%;
+  }
+}
+
   /* ABOUT */
   #about {
     padding: 6rem 0;
@@ -713,68 +768,110 @@
       </div>
     </div>
 
-    <!-- Project 4 -->
-    <div class="project-card">
-      <div class="project-top">
-        <div class="project-num">Project 04</div>
-        <div class="project-tags">
-          <span class="tag accent">Docker</span>
-          <span class="tag accent">GitHub Actions</span>
-          <span class="tag">Python Flask</span>
-          <span class="tag">EC2</span>
+    <div class="projects-slider-wrapper">
+      <div class="projects-slider" id="projectsSlider">
+
+        <!-- Project 7 -->
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-num">Project 07</div>
+            <div class="project-tags">
+              <span class="tag accent">Docker</span>
+              <span class="tag accent">GitHub Actions</span>
+              <span class="tag">Gunicorn</span>
+              <span class="tag">AWS EC2</span>
+            </div>
+          </div>
+          <h3>Client Codebase DevOps Transformation</h3>
+          <p class="project-problem">
+            Problem: The client application had no deployment infrastructure — deployments were manual, unsafe, and impossible to scale or recover automatically.
+          </p>
+          <ul class="project-bullets">
+            <li>Containerized an existing Flask inventory management system with Docker and production-ready Gunicorn deployment</li>
+            <li>Built a four-stage CI/CD pipeline with automated testing, Docker image versioning, staging deployment, and manual production approval gates</li>
+            <li>Implemented health checks, automatic rollback, persistent SQLite volumes, and isolated staging/production EC2 environments</li>
+          </ul>
+          <a href="https://github.com/Vimukthi-Randunu/PROJECT-7-REPO-LINK" target="_blank" class="project-link">
+            View on GitHub →
+          </a>
         </div>
+
+        <!-- Project 6 -->
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-num">Project 06</div>
+            <div class="project-tags">
+              <span class="tag amber">Staging</span>
+              <span class="tag amber">Production</span>
+              <span class="tag">Approval Gates</span>
+              <span class="tag">GitHub Environments</span>
+            </div>
+          </div>
+          <h3>Staging & Production Environment Separation</h3>
+          <p class="project-problem">Problem: Deploying directly to production on every push means users are exposed to every bug. There is no safe place to test before it's live.</p>
+          <ul class="project-bullets">
+            <li>Two isolated EC2 environments — staging deploys automatically on every push, production requires manual approval</li>
+            <li>Single Docker image built once and deployed identically to both environments — no drift between staging and prod</li>
+            <li>Per-environment secrets via GitHub Environments — staging and production have completely isolated credentials</li>
+          </ul>
+          <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-6" target="_blank" class="project-link">View on GitHub →</a>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-num">Project 05</div>
+            <div class="project-tags">
+              <span class="tag green">Docker Compose</span>
+              <span class="tag green">PostgreSQL</span>
+              <span class="tag">Flask API</span>
+              <span class="tag">EC2</span>
+            </div>
+          </div>
+          <h3>Multi-Container System with Database</h3>
+          <p class="project-problem">Problem: Real apps need databases. Running an app and a database together in production requires careful networking, configuration, and startup ordering.</p>
+          <ul class="project-bullets">
+            <li>Flask API and PostgreSQL running as separate containers connected via Docker Compose networking</li>
+            <li>Containers discover each other by service name — no hardcoded IPs, no fragile config</li>
+            <li>All secrets injected at runtime via environment variables, never stored in code or images</li>
+          </ul>
+          <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-5" target="_blank" class="project-link">View on GitHub →</a>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-num">Project 04</div>
+            <div class="project-tags">
+              <span class="tag accent">Docker</span>
+              <span class="tag accent">GitHub Actions</span>
+              <span class="tag">Python Flask</span>
+              <span class="tag">EC2</span>
+            </div>
+          </div>
+          <h3>Docker-Based CI/CD Pipeline</h3>
+          <p class="project-problem">Problem: Deploying raw code to a server means the server must be configured for every app. One wrong dependency breaks everything.</p>
+          <ul class="project-bullets">
+            <li>Containerized a Python Flask app with Docker — server only needs Docker installed, nothing else</li>
+            <li>Three-job pipeline: tests run inside the container, image pushed to Docker Hub tagged with Git commit SHA, EC2 pulls and runs the image</li>
+            <li>Automatic rollback to previous image by SHA if health check fails after deploy</li>
+          </ul>
+          <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-4" target="_blank" class="project-link">View on GitHub →</a>
+        </div>
+
       </div>
-      <h3>Docker-Based CI/CD Pipeline</h3>
-      <p class="project-problem">Problem: Deploying raw code to a server means the server must be configured for every app. One wrong dependency breaks everything.</p>
-      <ul class="project-bullets">
-        <li>Containerized a Python Flask app with Docker — server only needs Docker installed, nothing else</li>
-        <li>Three-job pipeline: tests run inside the container, image pushed to Docker Hub tagged with Git commit SHA, EC2 pulls and runs the image</li>
-        <li>Automatic rollback to previous image by SHA if health check fails after deploy</li>
-      </ul>
-      <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-4" target="_blank" class="project-link">View on GitHub →</a>
     </div>
 
-    <!-- Project 5 -->
-    <div class="project-card">
-      <div class="project-top">
-        <div class="project-num">Project 05</div>
-        <div class="project-tags">
-          <span class="tag green">Docker Compose</span>
-          <span class="tag green">PostgreSQL</span>
-          <span class="tag">Flask API</span>
-          <span class="tag">EC2</span>
-        </div>
-      </div>
-      <h3>Multi-Container System with Database</h3>
-      <p class="project-problem">Problem: Real apps need databases. Running an app and a database together in production requires careful networking, configuration, and startup ordering.</p>
-      <ul class="project-bullets">
-        <li>Flask API and PostgreSQL running as separate containers connected via Docker Compose networking</li>
-        <li>Containers discover each other by service name — no hardcoded IPs, no fragile config</li>
-        <li>All secrets injected at runtime via environment variables, never stored in code or images</li>
-      </ul>
-      <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-5" target="_blank" class="project-link">View on GitHub →</a>
+    <div class="projects-nav">
+      <button class="slider-btn" id="projectsPrev">
+        ←
+      </button>
+
+      <button class="slider-btn" id="projectsNext">
+        →
+      </button>
     </div>
 
-    <!-- Project 6 -->
-    <div class="project-card">
-      <div class="project-top">
-        <div class="project-num">Project 06</div>
-        <div class="project-tags">
-          <span class="tag amber">Staging</span>
-          <span class="tag amber">Production</span>
-          <span class="tag">Approval Gates</span>
-          <span class="tag">GitHub Environments</span>
-        </div>
-      </div>
-      <h3>Staging & Production Environment Separation</h3>
-      <p class="project-problem">Problem: Deploying directly to production on every push means users are exposed to every bug. There is no safe place to test before it's live.</p>
-      <ul class="project-bullets">
-        <li>Two isolated EC2 environments — staging deploys automatically on every push, production requires manual approval</li>
-        <li>Single Docker image built once and deployed identically to both environments — no drift between staging and prod</li>
-        <li>Per-environment secrets via GitHub Environments — staging and production have completely isolated credentials</li>
-      </ul>
-      <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-6" target="_blank" class="project-link">View on GitHub →</a>
-    </div>
   </div>
 </section>
 
@@ -831,6 +928,55 @@
 <footer>
   <p>© 2026 Radiance IT Solution · W.K.V.P Randunu · RadianceITSolution.com</p>
 </footer>
+
+<script>
+const slider = document.getElementById('projectsSlider');
+const nextBtn = document.getElementById('projectsNext');
+const prevBtn = document.getElementById('projectsPrev');
+
+let currentIndex = 0;
+
+function getCardsPerView() {
+  if (window.innerWidth <= 768) return 1;
+  if (window.innerWidth <= 1100) return 2;
+  return 3;
+}
+
+function updateSlider() {
+  const cardsPerView = getCardsPerView();
+  const cardWidth = slider.querySelector('.project-card').offsetWidth;
+  const gap = 20;
+
+  slider.style.transform =
+    `translateX(-${currentIndex * (cardWidth + gap)}px)`;
+
+  const maxIndex = slider.children.length - cardsPerView;
+
+  prevBtn.style.opacity = currentIndex === 0 ? '0.4' : '1';
+  nextBtn.style.opacity = currentIndex >= maxIndex ? '0.4' : '1';
+}
+
+nextBtn.addEventListener('click', () => {
+  const cardsPerView = getCardsPerView();
+  const maxIndex = slider.children.length - cardsPerView;
+
+  if (currentIndex < maxIndex) {
+    currentIndex++;
+    updateSlider();
+  }
+});
+
+prevBtn.addEventListener('click', () => {
+  if (currentIndex > 0) {
+    currentIndex--;
+    updateSlider();
+  }
+});
+
+window.addEventListener('resize', updateSlider);
+
+updateSlider();
+</script>
 
 </body>
 </html>
