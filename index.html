@@ -342,19 +342,38 @@
 </footer>
 
 <script>
+  // Always reset scroll to top on page reload
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+  };
+
+  window.onload = function () {
+    window.scrollTo(0, 0);
+  };
+
   const btn = document.getElementById('showMoreBtn');
   const more = document.getElementById('projects-more');
+
   let open = false;
 
   btn.addEventListener('click', function() {
     open = !open;
+
     if (open) {
       more.classList.add('open');
       btn.textContent = 'Show less ↑';
     } else {
       more.classList.remove('open');
       btn.textContent = 'Show more projects ↓';
-      document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      document.getElementById('projects').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
   });
 </script>
