@@ -9,685 +9,105 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #0d0f14;
-    --bg2: #13161d;
-    --bg3: #1a1e28;
-    --border: rgba(255,255,255,0.07);
-    --border-hover: rgba(255,255,255,0.15);
-    --text: #e8eaf0;
-    --muted: #7a7f91;
-    --accent: #4f8ef7;
-    --accent2: #7dd3b0;
-    --accent3: #f7c44f;
-    --font-display: 'Syne', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
+    --bg: #0d0f14; --bg2: #13161d; --bg3: #1a1e28;
+    --border: rgba(255,255,255,0.07); --border-hover: rgba(255,255,255,0.15);
+    --text: #e8eaf0; --muted: #7a7f91;
+    --accent: #4f8ef7; --accent2: #7dd3b0; --accent3: #f7c44f;
+    --font-display: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
   }
-
   html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
-    font-size: 16px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  /* noise overlay */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
-  }
-
-  /* grid lines background */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(79,142,247,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(79,142,247,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 1.25rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(13,15,20,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .nav-brand {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: 0.02em;
-    color: var(--text);
-    text-decoration: none;
-  }
-
-  .nav-brand span {
-    color: var(--accent);
-  }
-
-  nav a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 400;
-    transition: color 0.2s;
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.4; }
+  body::after { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(79,142,247,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(79,142,247,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; background: rgba(13,15,20,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-brand { font-family: var(--font-display); font-weight: 700; font-size: 1rem; letter-spacing: 0.02em; color: var(--text); text-decoration: none; }
+  .nav-brand span { color: var(--accent); }
+  nav a { color: var(--muted); text-decoration: none; font-size: 0.875rem; font-weight: 400; transition: color 0.2s; }
   nav a:hover { color: var(--text); }
-
   .nav-links { display: flex; gap: 2rem; align-items: center; }
-
-  .nav-cta {
-    background: var(--accent) !important;
-    color: #fff !important;
-    padding: 0.45rem 1.1rem;
-    border-radius: 6px;
-    font-weight: 500 !important;
-    font-size: 0.875rem;
-    transition: opacity 0.2s !important;
-  }
-
+  .nav-cta { background: var(--accent) !important; color: #fff !important; padding: 0.45rem 1.1rem; border-radius: 6px; font-weight: 500 !important; font-size: 0.875rem; transition: opacity 0.2s !important; }
   .nav-cta:hover { opacity: 0.85; color: #fff !important; }
-
-  /* SECTIONS */
   section { position: relative; z-index: 1; }
-
-  .container {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  /* HERO */
-  #hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 8rem 0 6rem;
-  }
-
-  .hero-inner {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-eyebrow::before {
-    content: '';
-    display: block;
-    width: 24px;
-    height: 1px;
-    background: var(--accent);
-  }
-
-  h1 {
-    font-family: var(--font-display);
-    font-size: clamp(2.8rem, 6vw, 5rem);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin-bottom: 1.75rem;
-    color: var(--text);
-  }
-
-  h1 .highlight {
-    color: var(--accent);
-    position: relative;
-  }
-
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
+  #hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 0 6rem; }
+  .hero-inner { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
+  .hero-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+  h1 { font-family: var(--font-display); font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.75rem; color: var(--text); }
+  h1 .highlight { color: var(--accent); }
   h1 .highlight2 { color: var(--accent2); }
-
-  .hero-sub {
-    font-size: 1.125rem;
-    color: var(--muted);
-    max-width: 560px;
-    line-height: 1.8;
-    margin-bottom: 2.5rem;
-    font-weight: 300;
-  }
-
+  .hero-sub { font-size: 1.125rem; color: var(--muted); max-width: 560px; line-height: 1.8; margin-bottom: 2.5rem; font-weight: 300; }
   .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
-
-  .btn-primary {
-    background: var(--accent);
-    color: #fff;
-    padding: 0.8rem 1.75rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: opacity 0.2s, transform 0.2s;
-    display: inline-block;
-  }
-
+  .btn-primary { background: var(--accent); color: #fff; padding: 0.8rem 1.75rem; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: opacity 0.2s, transform 0.2s; display: inline-block; }
   .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
-
-  .btn-ghost {
-    color: var(--muted);
-    padding: 0.8rem 1.75rem;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    text-decoration: none;
-    font-weight: 400;
-    font-size: 0.95rem;
-    transition: border-color 0.2s, color 0.2s;
-    display: inline-block;
-  }
-
+  .btn-ghost { color: var(--muted); padding: 0.8rem 1.75rem; border-radius: 8px; border: 1px solid var(--border); text-decoration: none; font-weight: 400; font-size: 0.95rem; transition: border-color 0.2s, color 0.2s; display: inline-block; background: transparent; }
   .btn-ghost:hover { border-color: var(--border-hover); color: var(--text); }
-
-  /* STAT ROW */
-  .stat-row {
-    display: flex;
-    gap: 2.5rem;
-    margin-top: 4rem;
-    padding-top: 3rem;
-    border-top: 1px solid var(--border);
-    flex-wrap: wrap;
-  }
-
-  .stat { }
-  .stat-num {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1;
-  }
-
+  .stat-row { display: flex; gap: 2.5rem; margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .stat-num { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--text); line-height: 1; }
   .stat-num span { color: var(--accent); }
   .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; letter-spacing: 0.04em; }
-
-  /* SECTION HEADERS */
-  .section-label {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .section-label::before {
-    content: '';
-    display: block;
-    width: 20px;
-    height: 1px;
-    background: var(--accent);
-  }
-
-  .section-title {
-    font-family: var(--font-display);
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    color: var(--text);
-    margin-bottom: 1rem;
-  }
-
-  .section-desc {
-    color: var(--muted);
-    font-size: 1rem;
-    max-width: 520px;
-    font-weight: 300;
-    line-height: 1.8;
-  }
-
-  /* WHAT I DO */
-  #services {
-    padding: 6rem 0;
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-top: 3rem;
-  }
-
-  .service-card {
-    background: var(--bg2);
-    padding: 2rem;
-    transition: background 0.2s;
-  }
-
+  .section-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+  .section-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .section-title { font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; color: var(--text); margin-bottom: 1rem; }
+  .section-desc { color: var(--muted); font-size: 1rem; max-width: 520px; font-weight: 300; line-height: 1.8; }
+  #services { padding: 6rem 0; background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-top: 3rem; }
+  .service-card { background: var(--bg2); padding: 2rem; transition: background 0.2s; }
   .service-card:hover { background: var(--bg3); }
-
-  .service-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background: rgba(79,142,247,0.1);
-    border: 1px solid rgba(79,142,247,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.25rem;
-  }
-
+  .service-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(79,142,247,0.1); border: 1px solid rgba(79,142,247,0.2); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; }
   .service-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-
-  .service-card h3 {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-  }
-
-  .service-card p {
-    font-size: 0.875rem;
-    color: var(--muted);
-    line-height: 1.7;
-    font-weight: 300;
-  }
-
-  /* PROJECTS */
+  .service-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
+  .service-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.7; font-weight: 300; }
   #projects { padding: 7rem 0; }
-
-  .projects-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 3rem;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .project-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 2rem 2.25rem;
-    margin-bottom: 1.25rem;
-    transition: border-color 0.2s, background 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .project-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px;
-    height: 100%;
-    background: var(--accent);
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-
+  .projects-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem; }
+  .project-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 2rem 2.25rem; margin-bottom: 1.25rem; transition: border-color 0.2s, background 0.2s; position: relative; overflow: hidden; }
+  .project-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
   .project-card:hover { border-color: var(--border-hover); background: var(--bg3); }
   .project-card:hover::before { opacity: 1; }
-
-  .project-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 0.75rem;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-
-  .project-num {
-    font-family: var(--font-display);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-    text-transform: uppercase;
-  }
-
+  .project-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.75rem; }
+  .project-num { font-family: var(--font-display); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); text-transform: uppercase; }
   .project-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-
-  .tag {
-    font-size: 0.72rem;
-    padding: 3px 10px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-weight: 400;
-    letter-spacing: 0.02em;
-  }
-
+  .tag { font-size: 0.72rem; padding: 3px 10px; border-radius: 20px; border: 1px solid var(--border); color: var(--muted); font-weight: 400; letter-spacing: 0.02em; }
   .tag.accent { border-color: rgba(79,142,247,0.3); color: var(--accent); background: rgba(79,142,247,0.06); }
   .tag.green { border-color: rgba(125,211,176,0.3); color: var(--accent2); background: rgba(125,211,176,0.06); }
   .tag.amber { border-color: rgba(247,196,79,0.3); color: var(--accent3); background: rgba(247,196,79,0.06); }
-
-  .project-card h3 {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.01em;
-  }
-
-  .project-problem {
-    font-size: 0.875rem;
-    color: var(--muted);
-    margin-bottom: 1.25rem;
-    font-style: italic;
-    font-weight: 300;
-  }
-
-  .project-bullets {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 1.5rem;
-  }
-
-  .project-bullets li {
-    font-size: 0.875rem;
-    color: var(--muted);
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    font-weight: 300;
-  }
-
-  .project-bullets li::before {
-    content: '';
-    display: block;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--accent);
-    margin-top: 9px;
-    flex-shrink: 0;
-  }
-
-  .project-link {
-    font-size: 0.8rem;
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    transition: gap 0.2s;
-  }
-
+  .project-card h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+  .project-problem { font-size: 0.875rem; color: var(--muted); margin-bottom: 1.25rem; font-style: italic; font-weight: 300; }
+  .project-bullets { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 1.5rem; }
+  .project-bullets li { font-size: 0.875rem; color: var(--muted); display: flex; align-items: flex-start; gap: 8px; font-weight: 300; }
+  .project-bullets li::before { content: ''; display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); margin-top: 9px; flex-shrink: 0; }
+  .project-link { font-size: 0.8rem; color: var(--accent); text-decoration: none; font-weight: 500; letter-spacing: 0.02em; display: inline-flex; align-items: center; gap: 5px; transition: gap 0.2s; }
   .project-link:hover { gap: 8px; }
-
-  .projects-page {
-  display: none;
-}
-
-.projects-page.active {
-  display: block;
-}
-
-.projects-nav {
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-top: 2rem;
-}
-
-.slider-btn {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(79,142,247,0.12);
-  color: #60a5fa;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.slider-btn:hover {
-  background: #2563eb;
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 0 25px rgba(37,99,235,0.35);
-}
-
-.projects-nav {
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-top: 2rem;
-}
-
-.slider-btn {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(79,142,247,0.12);
-  color: #60a5fa;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  backdrop-filter: blur(10px);
-}
-
-.slider-btn:hover {
-  background: #2563eb;
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 0 25px rgba(37, 99, 235, 0.35);
-}
-
-@media (max-width: 1100px) {
-  .project-card {
-    min-width: calc((100% - 1.25rem) / 2);
-  }
-}
-
-@media (max-width: 768px) {
-  .project-card {
-    min-width: 100%;
-  }
-}
-
-  /* ABOUT */
-  #about {
-    padding: 6rem 0;
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-    margin-top: 3rem;
-  }
-
-  @media (max-width: 680px) {
-    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  }
-
-  .about-text p {
-    color: var(--muted);
-    font-size: 0.975rem;
-    font-weight: 300;
-    line-height: 1.85;
-    margin-bottom: 1rem;
-  }
-
+  .projects-more { overflow: hidden; max-height: 0; transition: max-height 0.5s ease; }
+  .projects-more.open { max-height: 3000px; }
+  .show-more-wrap { text-align: center; margin-top: 1.5rem; }
+  .show-more-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 0.75rem 2rem; border-radius: 8px; font-size: 0.875rem; font-family: var(--font-body); cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+  .show-more-btn:hover { border-color: var(--border-hover); color: var(--text); }
+  #about { padding: 6rem 0; background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 3rem; }
+  @media (max-width: 680px) { .about-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+  .about-text p { color: var(--muted); font-size: 0.975rem; font-weight: 300; line-height: 1.85; margin-bottom: 1rem; }
   .about-text p:last-child { margin-bottom: 0; }
-
-  .about-name {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 0.35rem;
-  }
-
-  .about-role {
-    font-size: 0.85rem;
-    color: var(--accent);
-    font-weight: 400;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-  }
-
-  .stack-label {
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    margin-bottom: 0.75rem;
-    font-weight: 500;
-  }
-
+  .about-name { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; }
+  .about-role { font-size: 0.85rem; color: var(--accent); font-weight: 400; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.5rem; }
+  .stack-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.75rem; font-weight: 500; }
   .stack-pills { display: flex; gap: 8px; flex-wrap: wrap; }
-
-  .pill {
-    font-size: 0.78rem;
-    padding: 5px 12px;
-    border-radius: 20px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-weight: 400;
-  }
-
-  /* CONTACT */
+  .pill { font-size: 0.78rem; padding: 5px 12px; border-radius: 20px; background: var(--bg3); border: 1px solid var(--border); color: var(--muted); font-weight: 400; }
   #contact { padding: 7rem 0; }
-
-  .contact-box {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 3.5rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    margin-top: 3rem;
-  }
-
-  .contact-box::before {
-    content: '';
-    position: absolute;
-    top: -60px; left: 50%;
-    transform: translateX(-50%);
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(79,142,247,0.08) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .contact-box h3 {
-    font-family: var(--font-display);
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 0.75rem;
-    letter-spacing: -0.01em;
-  }
-
-  .contact-box p {
-    color: var(--muted);
-    font-size: 0.975rem;
-    max-width: 420px;
-    margin: 0 auto 2rem;
-    font-weight: 300;
-    line-height: 1.8;
-  }
-
-  .contact-email {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(79,142,247,0.08);
-    border: 1px solid rgba(79,142,247,0.2);
-    color: var(--accent);
-    padding: 0.85rem 1.75rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 0.975rem;
-    font-weight: 500;
-    transition: background 0.2s;
-  }
-
+  .contact-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 3.5rem; text-align: center; position: relative; overflow: hidden; margin-top: 3rem; }
+  .contact-box::before { content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%); width: 300px; height: 300px; background: radial-gradient(circle, rgba(79,142,247,0.08) 0%, transparent 70%); pointer-events: none; }
+  .contact-box h3 { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; color: var(--text); margin-bottom: 0.75rem; letter-spacing: -0.01em; }
+  .contact-box p { color: var(--muted); font-size: 0.975rem; max-width: 420px; margin: 0 auto 2rem; font-weight: 300; line-height: 1.8; }
+  .contact-email { display: inline-flex; align-items: center; gap: 10px; background: rgba(79,142,247,0.08); border: 1px solid rgba(79,142,247,0.2); color: var(--accent); padding: 0.85rem 1.75rem; border-radius: 8px; text-decoration: none; font-size: 0.975rem; font-weight: 500; transition: background 0.2s; }
   .contact-email:hover { background: rgba(79,142,247,0.14); }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 2rem;
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--muted);
-    position: relative;
-    z-index: 1;
-    font-weight: 300;
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
+  footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 0.8rem; color: var(--muted); position: relative; z-index: 1; font-weight: 300; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
   .fade-up { animation: fadeUp 0.7s ease forwards; }
   .fade-up-2 { animation: fadeUp 0.7s 0.15s ease forwards; opacity: 0; }
   .fade-up-3 { animation: fadeUp 0.7s 0.3s ease forwards; opacity: 0; }
   .fade-up-4 { animation: fadeUp 0.7s 0.45s ease forwards; opacity: 0; }
-
-  @media (max-width: 640px) {
-    nav { padding: 1rem; }
-    .nav-links { gap: 1rem; }
-    .stat-row { gap: 1.5rem; }
-    .contact-box { padding: 2rem 1.5rem; }
-    .about-grid { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 640px) { nav { padding: 1rem; } .nav-links { gap: 1rem; } .contact-box { padding: 2rem 1.5rem; } }
 </style>
 </head>
 <body>
@@ -702,7 +122,6 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-inner">
     <div class="hero-eyebrow fade-up">DevOps & Deployment Automation</div>
@@ -718,10 +137,9 @@
       <a href="#contact" class="btn-primary">Start a conversation</a>
       <a href="#projects" class="btn-ghost">See my work</a>
     </div>
-
     <div class="stat-row fade-up-4">
       <div class="stat">
-        <div class="stat-num">6<span>+</span></div>
+        <div class="stat-num">7<span>+</span></div>
         <div class="stat-label">Production systems built</div>
       </div>
       <div class="stat">
@@ -736,39 +154,29 @@
   </div>
 </section>
 
-<!-- SERVICES -->
 <section id="services">
   <div class="container">
     <div class="section-label">What I do</div>
     <h2 class="section-title">End-to-end deployment automation</h2>
     <p class="section-desc">Real systems, not tutorials. Every service I offer is something I have built, debugged, and run in production.</p>
-
     <div class="services-grid">
       <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        </div>
+        <div class="service-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
         <h3>CI/CD Pipeline Setup</h3>
         <p>Automated testing and deployment on every code push. No more manual deployments. No more "works on my machine."</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        </div>
+        <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
         <h3>Docker & Containerization</h3>
         <p>Your app runs identically in development, staging, and production. Consistent environments, consistent results.</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        </div>
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
         <h3>Multi-Service Systems</h3>
         <p>Connect your app, database, and services into a reliable system with Docker Compose. Proper networking and config management.</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
+        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <h3>Staging & Production Environments</h3>
         <p>Test before it reaches users. Separate environments with approval gates so bad code never reaches production automatically.</p>
       </div>
@@ -776,136 +184,116 @@
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects">
   <div class="container">
     <div class="projects-header">
       <div>
         <div class="section-label">Selected work</div>
-        <h2 class="section-title">Real systems, real pipelines</h2>
+        <h2 class="section-title">Systems built. Problems solved.</h2>
       </div>
     </div>
 
-    <div class="projects-pages">
+    <!-- ALWAYS VISIBLE: 3 most recent -->
+    <div id="projects-visible">
 
-  <!-- PAGE 1 -->
-  <div class="projects-page active">
-
-    <!-- Project 07 -->
-    <div class="project-card">
-      <div class="project-top">
-        <div class="project-num">Project 07</div>
-        <div class="project-tags">
-          <span class="tag accent">Docker</span>
-          <span class="tag accent">GitHub Actions</span>
-          <span class="tag">Gunicorn</span>
-          <span class="tag">AWS EC2</span>
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-num">Project 07</div>
+          <div class="project-tags">
+            <span class="tag accent">Docker</span>
+            <span class="tag accent">GitHub Actions</span>
+            <span class="tag">Python Flask</span>
+            <span class="tag">EC2</span>
+          </div>
         </div>
+        <h3>Real Client Simulation — DevOps on a Stranger's Codebase</h3>
+        <p class="project-problem">Problem: Real client work means inheriting code you did not write — no documentation, missing dependencies, zero DevOps setup. You read it, understand it, and build the deployment layer around it.</p>
+        <ul class="project-bullets">
+          <li>Took a real open source Flask warehouse management app and added the complete DevOps layer — Dockerfile, Docker Compose, four job GitHub Actions pipeline, staging and production environments with approval gate</li>
+          <li>Discovered and fixed three undocumented gaps in the original codebase — missing dependency, incomplete database schema, and unmerged migration scripts</li>
+          <li>Solved data persistence with Docker bind mount volumes so user data survives every container restart and deployment</li>
+        </ul>
+        <a href="https://github.com/Vimukthi-Randunu/Smart_ref" target="_blank" class="project-link">View on GitHub →</a>
       </div>
 
-      <h3>Client Codebase DevOps Transformation</h3>
-
-      <p class="project-problem">
-        Problem: The client application had no deployment infrastructure — deployments were manual, unsafe, and impossible to scale or recover automatically.
-      </p>
-
-      <ul class="project-bullets">
-        <li>Containerized an existing Flask inventory management system with Docker and production-ready Gunicorn deployment</li>
-        <li>Built a four-stage CI/CD pipeline with automated testing, Docker image versioning, staging deployment, and manual production approval gates</li>
-        <li>Implemented health checks, automatic rollback, persistent SQLite volumes, and isolated staging/production EC2 environments</li>
-      </ul>
-
-      <a href="https://github.com/Vimukthi-Randunu/Smart_ref" target="_blank" class="project-link">
-        View on GitHub →
-      </a>
-    </div>
-
-    <!-- Project 06 -->
-    <div class="project-card">
-      <div class="project-top">
-            <div class="project-num">Project 06</div>
-            <div class="project-tags">
-              <span class="tag amber">Staging</span>
-              <span class="tag amber">Production</span>
-              <span class="tag">Approval Gates</span>
-              <span class="tag">GitHub Environments</span>
-            </div>
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-num">Project 06</div>
+          <div class="project-tags">
+            <span class="tag amber">Staging</span>
+            <span class="tag amber">Production</span>
+            <span class="tag">Approval Gates</span>
+            <span class="tag">GitHub Environments</span>
           </div>
-          <h3>Staging & Production Environment Separation</h3>
-          <p class="project-problem">Problem: Deploying directly to production on every push means users are exposed to every bug. There is no safe place to test before it's live.</p>
-          <ul class="project-bullets">
-            <li>Two isolated EC2 environments — staging deploys automatically on every push, production requires manual approval</li>
-            <li>Single Docker image built once and deployed identically to both environments — no drift between staging and prod</li>
-            <li>Per-environment secrets via GitHub Environments — staging and production have completely isolated credentials</li>
-          </ul>
-          <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-6" target="_blank" class="project-link">View on GitHub →</a>
-    </div>
+        </div>
+        <h3>Staging & Production Environment Separation</h3>
+        <p class="project-problem">Problem: Deploying directly to production on every push means users are exposed to every bug. There is no safe place to test before it's live.</p>
+        <ul class="project-bullets">
+          <li>Two isolated EC2 environments — staging deploys automatically on every push, production requires manual approval</li>
+          <li>Single Docker image built once and deployed identically to both environments — no drift between staging and prod</li>
+          <li>Per-environment secrets via GitHub Environments — staging and production have completely isolated credentials</li>
+        </ul>
+        <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-6" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
 
-    <!-- Project 05 -->
-    <div class="project-card">
-      <div class="project-top">
-            <div class="project-num">Project 05</div>
-            <div class="project-tags">
-              <span class="tag green">Docker Compose</span>
-              <span class="tag green">PostgreSQL</span>
-              <span class="tag">Flask API</span>
-              <span class="tag">EC2</span>
-            </div>
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-num">Project 05</div>
+          <div class="project-tags">
+            <span class="tag green">Docker Compose</span>
+            <span class="tag green">PostgreSQL</span>
+            <span class="tag">Flask API</span>
+            <span class="tag">EC2</span>
           </div>
-          <h3>Multi-Container System with Database</h3>
-          <p class="project-problem">Problem: Real apps need databases. Running an app and a database together in production requires careful networking, configuration, and startup ordering.</p>
-          <ul class="project-bullets">
-            <li>Flask API and PostgreSQL running as separate containers connected via Docker Compose networking</li>
-            <li>Containers discover each other by service name — no hardcoded IPs, no fragile config</li>
-            <li>All secrets injected at runtime via environment variables, never stored in code or images</li>
-          </ul>
-          <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-5" target="_blank" class="project-link">View on GitHub →</a>
+        </div>
+        <h3>Multi-Container System with Database</h3>
+        <p class="project-problem">Problem: Real apps need databases. Running an app and a database together in production requires careful networking, configuration, and startup ordering.</p>
+        <ul class="project-bullets">
+          <li>Flask API and PostgreSQL running as separate containers connected via Docker Compose networking</li>
+          <li>Containers discover each other by service name — no hardcoded IPs, no fragile config</li>
+          <li>All secrets injected at runtime via environment variables, never stored in code or images</li>
+        </ul>
+        <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-5" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+
     </div>
 
-  </div>
+    <!-- HIDDEN BY DEFAULT: older projects expand downward -->
+    <div class="projects-more" id="projects-more">
 
-  <!-- PAGE 2 -->
-  <div class="projects-page">
-
-    <!-- Project 04 -->
-    <div class="project-card">
-      <div class="project-top">
-            <div class="project-num">Project 04</div>
-            <div class="project-tags">
-              <span class="tag accent">Docker</span>
-              <span class="tag accent">GitHub Actions</span>
-              <span class="tag">Python Flask</span>
-              <span class="tag">EC2</span>
-            </div>
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-num">Project 04</div>
+          <div class="project-tags">
+            <span class="tag accent">Docker</span>
+            <span class="tag accent">GitHub Actions</span>
+            <span class="tag">Python Flask</span>
+            <span class="tag">EC2</span>
           </div>
-          <h3>Docker-Based CI/CD Pipeline</h3>
-          <p class="project-problem">Problem: Deploying raw code to a server means the server must be configured for every app. One wrong dependency breaks everything.</p>
-          <ul class="project-bullets">
-            <li>Containerized a Python Flask app with Docker — server only needs Docker installed, nothing else</li>
-            <li>Three-job pipeline: tests run inside the container, image pushed to Docker Hub tagged with Git commit SHA, EC2 pulls and runs the image</li>
-            <li>Automatic rollback to previous image by SHA if health check fails after deploy</li>
-          </ul>
-          <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-4" target="_blank" class="project-link">View on GitHub →</a>
+        </div>
+        <h3>Docker-Based CI/CD Pipeline</h3>
+        <p class="project-problem">Problem: Deploying raw code to a server means the server must be configured for every app. One wrong dependency breaks everything.</p>
+        <ul class="project-bullets">
+          <li>Containerized a Python Flask app with Docker — server only needs Docker installed, nothing else</li>
+          <li>Three-job pipeline: tests run inside the container, image pushed to Docker Hub tagged with Git commit SHA, EC2 pulls and runs the image</li>
+          <li>Automatic rollback to previous image by SHA if health check fails after deploy</li>
+        </ul>
+        <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-4" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+
     </div>
 
-  </div>
+    <div class="show-more-wrap">
+      <button type="button" class="show-more-btn" id="showMoreBtn">Show more projects ↓</button>
+    </div>
 
-</div>
-
-<div class="projects-nav">
-  <button type="button" class="slider-btn" id="projectsPrev">←</button>
-  <button type="button" class="slider-btn" id="projectsNext">→</button>
-</div>
-       
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="container">
     <div class="section-label">About</div>
     <h2 class="section-title">Built from first principles</h2>
-
     <div class="about-grid">
       <div class="about-text">
         <p>I am Vimukthi Randunu, a DevOps engineer focused on deployment automation and system reliability. I build the infrastructure that lets development teams ship confidently — automated pipelines, containerized systems, and environment separation that catches problems before they reach users.</p>
@@ -927,18 +315,17 @@
           <span class="pill">Bash</span>
           <span class="pill">Git</span>
           <span class="pill">Gunicorn</span>
+          <span class="pill">Nginx</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="container">
     <div class="section-label">Contact</div>
     <h2 class="section-title">Let's talk about your system</h2>
-
     <div class="contact-box">
       <h3>Ready to automate your deployments?</h3>
       <p>If your team is deploying manually, has no testing pipeline, or wants to stop worrying about broken deploys — let's have a conversation.</p>
@@ -955,47 +342,21 @@
 </footer>
 
 <script>
-const pages = document.querySelectorAll('.projects-page');
-const nextBtn = document.getElementById('projectsNext');
-const prevBtn = document.getElementById('projectsPrev');
+  const btn = document.getElementById('showMoreBtn');
+  const more = document.getElementById('projects-more');
+  let open = false;
 
-let currentPage = 0;
-
-function updatePages() {
-  pages.forEach((page, index) => {
-    if (index === currentPage) {
-      page.style.display = 'block';
+  btn.addEventListener('click', function() {
+    open = !open;
+    if (open) {
+      more.classList.add('open');
+      btn.textContent = 'Show less ↑';
     } else {
-      page.style.display = 'none';
+      more.classList.remove('open');
+      btn.textContent = 'Show more projects ↓';
+      document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   });
-
-  prevBtn.style.opacity = currentPage === 0 ? '0.4' : '1';
-
-  nextBtn.style.opacity =
-    currentPage === pages.length - 1 ? '0.4' : '1';
-}
-
-nextBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-
-  if (currentPage < pages.length - 1) {
-    currentPage++;
-    updatePages();
-  }
-});
-
-prevBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-
-  if (currentPage > 0) {
-    currentPage--;
-    updatePages();
-  }
-});
-
-updatePages();
 </script>
-
 </body>
 </html>
