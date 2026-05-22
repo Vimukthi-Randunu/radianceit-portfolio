@@ -147,7 +147,7 @@
     </div>
     <div class="stat-row fade-up-4">
       <div class="stat">
-        <div class="stat-num">7<span>+</span></div>
+        <div class="stat-num">8<span>+</span></div>
         <div class="stat-label">Production-ready systems built</div>
       </div>
       <div class="stat">
@@ -207,6 +207,37 @@
 
     <!-- ALWAYS VISIBLE: 3 most recent -->
     <div id="projects-visible">
+
+      <!-- Project 08 -->
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-num">Project 08</div>
+          <div class="project-tags">
+            <span class="tag accent">FastAPI</span>
+            <span class="tag accent">Nginx</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">HTTPS</span>
+          </div>
+        </div>
+
+        <h3>Production Waitlist API Infrastructure</h3>
+
+        <p class="project-problem">
+          Problem: Production APIs need secure HTTPS access, reverse proxy routing, isolated environments, and reliable deployments. A single container exposed directly to the internet is not production-ready.
+        </p>
+
+        <ul class="project-bullets">
+          <li>Built a production-grade FastAPI system with PostgreSQL backend, Nginx reverse proxy, and HTTPS via Let's Encrypt</li>
+
+          <li>Nginx handles SSL termination and forwards traffic internally to FastAPI over a private Docker network — application and database containers are never publicly exposed</li>
+
+          <li>Full GitHub Actions pipeline with staging deployment, production approval gate, health checks, SHA-based rollback, and environment-specific Nginx configurations</li>
+        </ul>
+
+        <a href="https://github.com/Vimukthi-Randunu/production-waitlist-api" target="_blank" class="project-link">
+          View on GitHub →
+        </a>
+      </div>
 
       <div class="project-card">
         <div class="project-top">
