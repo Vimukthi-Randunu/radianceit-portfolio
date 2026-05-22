@@ -249,13 +249,15 @@
             <span class="tag">EC2</span>
           </div>
         </div>
-        <h3>Real Client Simulation — DevOps on a Stranger's Codebase</h3>
-        <p class="project-problem">Problem: Real client work means inheriting code you did not write — no documentation, missing dependencies, zero DevOps setup. You read it, understand it, and build the deployment layer around it.</p>
-        <ul class="project-bullets">
-          <li>Took a real open source Flask warehouse management app and added the complete DevOps layer — Dockerfile, Docker Compose, four job GitHub Actions pipeline, staging and production environments with approval gate</li>
-          <li>Discovered and fixed three undocumented gaps in the original codebase — missing dependency, incomplete database schema, and unmerged migration scripts</li>
-          <li>Solved data persistence with Docker bind mount volumes so user data survives every container restart and deployment</li>
-        </ul>
+          <h3>Operationalizing an Existing Application</h3>
+          <p class="project-problem">
+            Problem: Existing applications often lack deployment automation, environment isolation, and operational reliability. Production infrastructure must be designed around software that was not originally built for deployment workflows.
+          </p>
+          <ul class="project-bullets">
+            <li>Integrated a complete DevOps layer into an existing Flask warehouse management application — Docker, Docker Compose, GitHub Actions pipeline, staging and production environments, and deployment approval gates</li>
+            <li>Identified and resolved undocumented operational gaps including missing dependencies, incomplete database schema setup, and unmerged migration scripts</li>
+            <li>Implemented persistent Docker volume storage so application data survives container restarts and deployments reliably</li>
+          </ul>
         <a href="https://github.com/Vimukthi-Randunu/Smart_ref" target="_blank" class="project-link">View on GitHub →</a>
       </div>
 
