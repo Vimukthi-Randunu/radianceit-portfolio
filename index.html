@@ -992,7 +992,7 @@ footer .container { flex-direction: column; gap: 1rem; text-align: center; }
         </div>
         <h3>Webhook Delivery System</h3>
         <p class="project-problem">
-          Problem: Webhook delivery requires guaranteed async processing, retry logic on failure, full audit trails, and operational visibility — none of which you get from a simple HTTP call inside an API handler.
+          Problem: Webhook delivery requires guaranteed async processing, retry logic on failure, full audit trails, and operational visibility — none of which you get from a simple HTTP call inside an API handler. Built on a producer/consumer architecture with Redis as the message queue.
         </p>
         <ul class="project-bullets">
           <li>Two-tier AWS architecture — application layer (FastAPI, RQ worker, Redis, Nginx) on Instance 1, data and observability layer (PostgreSQL, Prometheus, Grafana) on Instance 2, communicating exclusively over a private VPC network. No internal traffic crosses the public internet.</li>
