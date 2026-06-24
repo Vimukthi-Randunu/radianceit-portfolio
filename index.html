@@ -899,7 +899,7 @@ footer p {
     </div>
     <div class="stat-row fade-up-4">
       <div class="stat">
-        <div class="stat-num">8<span>+</span></div>
+        <div class="stat-num">9<span>+</span></div>
         <div class="stat-label">Production-ready systems built</div>
       </div>
       <div class="stat">
@@ -962,6 +962,32 @@ footer p {
     <!-- ALWAYS VISIBLE: 3 most recent -->
     <div id="projects-visible">
 
+<!-- Project 09 — Webhook Delivery System -->
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-num"></div>
+          <div class="project-tags">
+            <span class="tag accent">FastAPI</span>
+            <span class="tag accent">Redis · RQ</span>
+            <span class="tag accent">Prometheus · Grafana</span>
+            <span class="tag">AWS VPC</span>
+            <span class="tag">Parameter Store</span>
+          </div>
+        </div>
+        <h3>Webhook Delivery System</h3>
+        <p class="project-problem">
+          Problem: Webhook delivery requires guaranteed async processing, retry logic on failure, full audit trails, and operational visibility — none of which you get from a simple HTTP call inside an API handler.
+        </p>
+        <ul class="project-bullets">
+          <li>Two-tier AWS architecture — application layer (FastAPI, RQ worker, Redis, Nginx) on Instance 1, data and observability layer (PostgreSQL, Prometheus, Grafana) on Instance 2, communicating exclusively over a private VPC network. No internal traffic crosses the public internet.</li>
+          <li>Decoupled delivery pipeline: API accepts the event, persists to PostgreSQL, and pushes a job to Redis — returning immediately. The RQ worker processes delivery asynchronously, retrying on failure. Every attempt is recorded. The API never blocks on delivery.</li>
+          <li>Runtime secrets fetched from AWS Parameter Store via IAM role at deploy time — no secrets on disk, no secrets in the repository. GitHub Secrets used only for CI/CD pipeline operations.</li>
+          <li>Four-job GitHub Actions pipeline: test → build → deploy-staging (auto) → deploy-production (manual approval gate). Single Docker image, different entrypoint commands for API and worker — one build artifact, two runtime roles.</li>
+          <li>Prometheus scrapes four targets (API, node-exporter, redis-exporter, self). Two active alert rules: target-down fires immediately, high error rate fires when 4xx/5xx ratio exceeds 5% over a 5-minute window.</li>
+        </ul>
+        <a href="https://github.com/Vimukthi-Randunu/webhook-delivery-system" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+
       <!-- Project 08 -->
       <div class="project-card">
         <div class="project-top">
@@ -991,6 +1017,7 @@ footer p {
         </a>
       </div>
 
+       <!-- Project 07 -->
       <div class="project-card">
         <div class="project-top">
           <div class="project-num"></div>
@@ -1013,6 +1040,11 @@ footer p {
         <a href="https://github.com/Vimukthi-Randunu/Smart_ref" target="_blank" class="project-link">View on GitHub →</a>
       </div>
 
+    </div>
+
+    <!-- HIDDEN BY DEFAULT: older projects expand downward -->
+    <div class="projects-more" id="projects-more">
+
       <div class="project-card">
         <div class="project-top">
           <div class="project-num"></div>
@@ -1032,11 +1064,6 @@ footer p {
         </ul>
         <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-6" target="_blank" class="project-link">View on GitHub →</a>
       </div>
-
-    </div>
-
-    <!-- HIDDEN BY DEFAULT: older projects expand downward -->
-    <div class="projects-more" id="projects-more">
 
       <div class="project-card">
         <div class="project-top">
