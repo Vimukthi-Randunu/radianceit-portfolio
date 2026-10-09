@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Radiance IT Solution — DevOps & Deployment Automation</title>
+<title>Radiance IT Solution: Cloud Infrastructure &amp; DevOps Engineering</title>
+<meta name="description" content="Radiance designs, automates and operates cloud infrastructure for agencies, product teams and growing businesses.">
 
 <link rel="icon" type="image/png" href="favicon-v6.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,8 +25,8 @@
 
   --text:         #f2f2f7;
   --text-soft:    #c0c0cc;
-  --text-muted:   #6e6e7a;
-  --text-faint:   #3a3a44;
+  --text-muted:   #9a9aa8;
+  --text-faint:   #86868f;
 
   --border:       rgba(242,242,247,0.07);
   --border-mid:   rgba(242,242,247,0.12);
@@ -33,6 +34,7 @@
 
   --accent:       #4f8ef7;
   --accent-dim:   rgba(79,142,247,0.12);
+  --accent-light: #8db4fb;
 
   --max-w:        1360px;
   --gutter:       3.5rem;
@@ -816,6 +818,56 @@ footer p {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* ─── FOCUS, SCROLL OFFSET, REDUCED MOTION ───────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 3px;
+}
+
+section[id], .project-card[id] { scroll-margin-top: 72px; }
+
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 1px solid var(--border-mid);
+  cursor: pointer;
+  position: relative;
+  color: var(--text);
+}
+
+.nav-toggle-bar,
+.nav-toggle-bar::before,
+.nav-toggle-bar::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+  transition: transform var(--t), opacity var(--t);
+}
+
+.nav-toggle-bar { top: 20px; }
+.nav-toggle-bar::before { left: 0; top: -6px; }
+.nav-toggle-bar::after  { left: 0; top: 6px; }
+
+nav.menu-open .nav-toggle-bar { background: transparent; }
+nav.menu-open .nav-toggle-bar::before { transform: translateY(6px) rotate(45deg); }
+nav.menu-open .nav-toggle-bar::after  { transform: translateY(-6px) rotate(-45deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .fade-up, .fade-up-2, .fade-up-3, .fade-up-4 { opacity: 1; transform: none; }
+}
+
 /* ─── RESPONSIVE ─────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   :root { --gutter: 2.5rem; }
@@ -833,7 +885,27 @@ footer p {
   h2 { font-size: clamp(2rem, 7vw, 3rem); }
   section { padding: 6rem 0; }
 
-  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: rgba(5,5,6,0.98);
+    border-bottom: 1px solid var(--border);
+    padding: 0.5rem var(--gutter) 1.5rem;
+  }
+
+  nav.menu-open { background: rgba(5,5,6,0.98); }
+  nav.menu-open .nav-links { display: flex; }
+
+  .nav-links a { padding: 1rem 0; border-bottom: 1px solid var(--border); }
+  .nav-links .nav-cta { margin-top: 1rem; text-align: center; border: 1px solid var(--accent); background: var(--accent); color: #050506; }
 
   .services-grid {
     grid-template-columns: 1fr;
@@ -886,14 +958,19 @@ footer .container { flex-direction: column; gap: 1rem; text-align: center; }
 </head>
 <body>
 
-<nav id="navbar">
+<nav id="navbar" aria-label="Main">
   <div class="nav-inner">
     <a href="#hero" class="nav-brand">Radiance</a>
-    <div class="nav-links">
+    <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+      <span class="nav-toggle-bar"></span>
+    </button>
+    <div class="nav-links" id="navLinks">
       <a href="#services">Services</a>
-      <a href="#projects">Systems</a>
+      <a href="#how-we-work">How we work</a>
+      <a href="#projects">Engineering Systems</a>
       <a href="#about">About</a>
-      <a href="#contact" class="nav-cta">Get in touch</a>
+      <a href="#contact">Contact</a>
+      <a href="mailto:wkvp.randunu@gmail.com?subject=Infrastructure%20assessment%20request" class="nav-cta">Request an assessment</a>
     </div>
   </div>
 </nav>
@@ -1199,16 +1276,25 @@ footer .container { flex-direction: column; gap: 1rem; text-align: center; }
 </footer>
 
 <script>
-  // Scroll restore
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  window.onbeforeunload = () => window.scrollTo(0, 0);
-  window.onload = () => window.scrollTo(0, 0);
-
   // Navbar scroll state
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
   }, { passive: true });
+
+  // Mobile menu
+  const navToggle = document.getElementById('navToggle');
+  const navLinks  = document.getElementById('navLinks');
+  function setMenu(openMenu) {
+    navbar.classList.toggle('menu-open', openMenu);
+    navToggle.setAttribute('aria-expanded', String(openMenu));
+    navToggle.setAttribute('aria-label', openMenu ? 'Close menu' : 'Open menu');
+  }
+  navToggle.addEventListener('click', () => setMenu(navToggle.getAttribute('aria-expanded') !== 'true'));
+  navLinks.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') { setMenu(false); navToggle.focus(); }
+  });
 
   // Show more projects
   const btn  = document.getElementById('showMoreBtn');
