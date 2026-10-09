@@ -554,13 +554,20 @@ nav.scrolled {
   padding-bottom: 3rem;
 }
 
-.projects-header .section-title {
-  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
-  max-width: 640px;
-  color: var(--text-soft);
-  font-weight: 400;
-  letter-spacing: -0.02em;
+.projects-header { margin-bottom: 2rem; padding-bottom: 0; border-bottom: none; }
+.projects-desc { margin-bottom: 0; }
+
+.sys-block { margin-bottom: 1.6rem; max-width: 860px; }
+.sys-block h4 {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent-light);
+  margin-bottom: 0.7rem;
 }
+.sys-block > p { color: var(--text-soft); font-size: 0.96rem; line-height: 1.8; }
+.sys-block .project-tags { justify-content: flex-start; }
+.sys-block .project-bullets { margin-bottom: 0; }
 
 /* Project cards — stacked with dividers, no box borders */
 #projects-visible,
@@ -1309,163 +1316,107 @@ footer .container { flex-direction: column; gap: 1rem; text-align: center; }
   <div class="container">
     <div class="projects-header">
       <div>
-        <div class="section-label">Infrastructure Systems</div>
-        <p class="section-title">Production-ready systems designed for deployment reliability and operational stability.</p>
+        <div class="section-label">Engineering Systems</div>
+        <h2 class="section-title">Engineering systems.</h2>
+        <p class="section-desc projects-desc">Reference systems built and documented by Radiance to demonstrate how we design and operate production infrastructure. Each one is public on GitHub.</p>
       </div>
     </div>
 
-    <!-- ALWAYS VISIBLE: 3 most recent -->
     <div id="projects-visible">
-
-<!-- Project 09 — Webhook Delivery System -->
-      <div class="project-card" id="sys-webhook">
-        <div class="project-top">
-          <div class="project-num"></div>
-          <div class="project-tags">
-            <span class="tag accent">FastAPI</span>
-            <span class="tag accent">Redis · RQ</span>
-            <span class="tag accent">Prometheus · Grafana</span>
-            <span class="tag">AWS VPC</span>
-            <span class="tag">Parameter Store</span>
-          </div>
-        </div>
+      <article class="project-card" id="sys-webhook">
         <h3>Webhook Delivery System</h3>
-        <p class="project-problem">
-          Problem: Webhook delivery requires guaranteed async processing, retry logic on failure, full audit trails, and operational visibility — none of which you get from a simple HTTP call inside an API handler. Built on a producer/consumer architecture with Redis as the message queue.
-        </p>
-        <ul class="project-bullets">
-          <li>Two-tier AWS architecture — application layer (FastAPI, RQ worker, Redis, Nginx) on Instance 1, data and observability layer (PostgreSQL, Prometheus, Grafana) on Instance 2, communicating exclusively over a private VPC network. No internal traffic crosses the public internet.</li>
-          <li>Decoupled delivery pipeline: API accepts the event, persists to PostgreSQL, and pushes a job to Redis — returning immediately. The RQ worker processes delivery asynchronously, retrying on failure. Every attempt is recorded. The API never blocks on delivery.</li>
-          <li>Runtime secrets fetched from AWS Parameter Store via IAM role at deploy time — no secrets on disk, no secrets in the repository. GitHub Secrets used only for CI/CD pipeline operations.</li>
-          <li>Four-job GitHub Actions pipeline: test → build → deploy-staging (auto) → deploy-production (manual approval gate). Single Docker image, different entrypoint commands for API and worker — one build artifact, two runtime roles.</li>
-          <li>Prometheus scrapes four targets (API, node-exporter, redis-exporter, self). Two active alert rules: target-down fires immediately, high error rate fires when 4xx/5xx ratio exceeds 5% over a 5-minute window.</li>
-        </ul>
-        <a href="https://github.com/Vimukthi-Randunu/webhook-delivery-system" target="_blank" class="project-link">View on GitHub →</a>
-      </div>
-
-      <!-- Project 08 -->
-      <div class="project-card" id="sys-waitlist">
-        <div class="project-top">
-          <div class="project-num"></div>
-          <div class="project-tags">
-            <span class="tag accent">FastAPI</span>
-            <span class="tag accent">Nginx</span>
-            <span class="tag">PostgreSQL</span>
-            <span class="tag">HTTPS</span>
-          </div>
+        <div class="sys-block"><h4>Challenge</h4><p>Webhook delivery requires guaranteed async processing, retry logic on failure, full audit trails, and operational visibility, none of which you get from a simple HTTP call inside an API handler. Built on a producer/consumer architecture with Redis as the message queue.</p></div>
+        <div class="sys-block"><h4>Approach</h4>
+          <ul class="project-bullets">
+            <li>Two-tier AWS architecture: application layer (FastAPI, RQ worker, Redis, Nginx) on Instance 1, data and observability layer (PostgreSQL, Prometheus, Grafana) on Instance 2, communicating exclusively over a private VPC network. No internal traffic crosses the public internet.</li>
+            <li>Decoupled delivery pipeline: API accepts the event, persists to PostgreSQL, and pushes a job to Redis, returning immediately. The RQ worker processes delivery asynchronously, retrying on failure. Every attempt is recorded. The API never blocks on delivery.</li>
+            <li>Runtime secrets fetched from AWS Parameter Store via IAM role at deploy time. No secrets on disk, no secrets in the repository. GitHub Secrets used only for CI/CD pipeline operations.</li>
+            <li>Four-job GitHub Actions pipeline: test, build, deploy-staging (auto), deploy-production (manual approval gate). Single Docker image, different entrypoint commands for API and worker: one build artifact, two runtime roles.</li>
+            <li>Prometheus scrapes four targets (API, node-exporter, redis-exporter, self). Two active alert rules: target-down fires immediately, high error rate fires when 4xx/5xx ratio exceeds 5% over a 5-minute window.</li>
+          </ul>
         </div>
-
+        <div class="sys-block"><h4>Infrastructure</h4><div class="project-tags"><span class="tag accent">FastAPI</span><span class="tag accent">Redis · RQ</span><span class="tag">Prometheus · Grafana</span><span class="tag">AWS VPC</span><span class="tag">Parameter Store</span></div></div>
+        <div class="sys-block"><h4>Outcome</h4><p>Demonstrates a private two-tier AWS design, asynchronous delivery with retries and audit records, and alerting on failures and error rates.</p><!-- DRAFT: needs owner approval (outcome line) --></div>
+        <a href="https://github.com/Vimukthi-Randunu/webhook-delivery-system" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+      </article>
+      <article class="project-card" id="sys-waitlist">
         <h3>Production Waitlist API Infrastructure</h3>
-
-        <p class="project-problem">
-          Problem: Production APIs need secure HTTPS access, reverse proxy routing, isolated environments, and reliable deployments. A single container exposed directly to the internet is not production-ready.
-        </p>
-
-        <ul class="project-bullets">
-          <li>Built a production-grade FastAPI system with PostgreSQL backend, Nginx reverse proxy, and HTTPS via Let's Encrypt</li>
-          <li>Nginx handles SSL termination and forwards traffic internally to FastAPI over a private Docker network — application and database containers are never publicly exposed</li>
-          <li>Full GitHub Actions pipeline with staging deployment, production approval gate, health checks, SHA-based rollback, and environment-specific Nginx configurations</li>
-        </ul>
-
-        <a href="https://github.com/Vimukthi-Randunu/production-waitlist-api" target="_blank" class="project-link">
-          View on GitHub →
-        </a>
-      </div>
-
-       <!-- Project 07 -->
-      <div class="project-card" id="sys-operationalizing">
-        <div class="project-top">
-          <div class="project-num"></div>
-          <div class="project-tags">
-            <span class="tag accent">Docker</span>
-            <span class="tag accent">GitHub Actions</span>
-            <span class="tag">Python Flask</span>
-            <span class="tag">EC2</span>
-          </div>
+        <div class="sys-block"><h4>Challenge</h4><p>Production APIs need secure HTTPS access, reverse proxy routing, isolated environments, and reliable deployments. A single container exposed directly to the internet is not production-ready.</p></div>
+        <div class="sys-block"><h4>Approach</h4>
+          <ul class="project-bullets">
+            <li>Built a production-grade FastAPI system with PostgreSQL backend, Nginx reverse proxy, and HTTPS via Let&rsquo;s Encrypt.</li>
+            <li>Nginx handles SSL termination and forwards traffic internally to FastAPI over a private Docker network. Application and database containers are never publicly exposed.</li>
+            <li>Full GitHub Actions pipeline with staging deployment, production approval gate, health checks, SHA-based rollback, and environment-specific Nginx configurations.</li>
+          </ul>
         </div>
+        <div class="sys-block"><h4>Infrastructure</h4><div class="project-tags"><span class="tag accent">FastAPI</span><span class="tag accent">Nginx</span><span class="tag">PostgreSQL</span><span class="tag">HTTPS</span></div></div>
+        <div class="sys-block"><h4>Outcome</h4><p>Demonstrates HTTPS termination, network isolation between services, and a gated deployment pipeline with rollback.</p><!-- DRAFT: needs owner approval (outcome line) --></div>
+        <a href="https://github.com/Vimukthi-Randunu/production-waitlist-api" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+      </article>
+      <article class="project-card" id="sys-operationalizing">
         <h3>Operationalizing an Existing Application</h3>
-        <p class="project-problem">
-          Problem: Existing applications often lack deployment automation, environment isolation, and operational reliability. Production infrastructure must be designed around software that was not originally built for deployment workflows.
-        </p>
-        <ul class="project-bullets">
-          <li>Integrated a complete DevOps layer into an existing Flask warehouse management application — Docker, Docker Compose, GitHub Actions pipeline, staging and production environments, and deployment approval gates</li>
-          <li>Identified and resolved undocumented operational gaps including missing dependencies, incomplete database schema setup, and unmerged migration scripts</li>
-          <li>Implemented persistent Docker volume storage so application data survives container restarts and deployments reliably</li>
-        </ul>
-        <a href="https://github.com/Vimukthi-Randunu/Smart_ref" target="_blank" class="project-link">View on GitHub →</a>
-      </div>
-
+        <div class="sys-block"><h4>Challenge</h4><p>Existing applications often lack deployment automation, environment isolation, and operational reliability. Production infrastructure must be designed around software that was not originally built for deployment workflows.</p></div>
+        <div class="sys-block"><h4>Approach</h4>
+          <ul class="project-bullets">
+            <li>Integrated a complete DevOps layer into an existing Flask warehouse management application: Docker, Docker Compose, GitHub Actions pipeline, staging and production environments, and deployment approval gates.</li>
+            <li>Identified and resolved undocumented operational gaps including missing dependencies, incomplete database schema setup, and unmerged migration scripts.</li>
+            <li>Implemented persistent Docker volume storage so application data survives container restarts and deployments reliably.</li>
+          </ul>
+        </div>
+        <div class="sys-block"><h4>Infrastructure</h4><div class="project-tags"><span class="tag accent">Docker</span><span class="tag accent">GitHub Actions</span><span class="tag">Python Flask</span><span class="tag">EC2</span></div></div>
+        <div class="sys-block"><h4>Outcome</h4><p>Demonstrates taking an application that was not built for deployment to a repeatable, gated release process.</p><!-- DRAFT: needs owner approval (outcome line) --></div>
+        <a href="https://github.com/Vimukthi-Randunu/Smart_ref" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+      </article>
     </div>
 
-    <!-- HIDDEN BY DEFAULT: older projects expand downward -->
     <div class="projects-more" id="projects-more">
-
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-num"></div>
-          <div class="project-tags">
-            <span class="tag amber">Staging</span>
-            <span class="tag amber">Production</span>
-            <span class="tag">Approval Gates</span>
-            <span class="tag">GitHub Environments</span>
-          </div>
+      <article class="project-card">
+        <h3>Staging &amp; Production Environment Separation</h3>
+        <div class="sys-block"><h4>Challenge</h4><p>Deploying directly to production on every push means users are exposed to every bug. There is no safe place to test before it&rsquo;s live.</p></div>
+        <div class="sys-block"><h4>Approach</h4>
+          <ul class="project-bullets">
+            <li>Two isolated EC2 environments: staging deploys automatically on every push, production requires manual approval.</li>
+            <li>Single Docker image built once and deployed identically to both environments, so there is no drift between staging and production.</li>
+            <li>Per-environment secrets via GitHub Environments. Staging and production have completely isolated credentials.</li>
+          </ul>
         </div>
-        <h3>Staging & Production Environment Separation</h3>
-        <p class="project-problem">Problem: Deploying directly to production on every push means users are exposed to every bug. There is no safe place to test before it's live.</p>
-        <ul class="project-bullets">
-          <li>Two isolated EC2 environments — staging deploys automatically on every push, production requires manual approval</li>
-          <li>Single Docker image built once and deployed identically to both environments — no drift between staging and prod</li>
-          <li>Per-environment secrets via GitHub Environments — staging and production have completely isolated credentials</li>
-        </ul>
-        <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-6" target="_blank" class="project-link">View on GitHub →</a>
-      </div>
-
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-num"></div>
-          <div class="project-tags">
-            <span class="tag green">Docker Compose</span>
-            <span class="tag green">PostgreSQL</span>
-            <span class="tag">Flask API</span>
-            <span class="tag">EC2</span>
-          </div>
-        </div>
+        <div class="sys-block"><h4>Infrastructure</h4><div class="project-tags"><span class="tag accent">Staging</span><span class="tag accent">Production</span><span class="tag">Approval Gates</span><span class="tag">GitHub Environments</span></div></div>
+        <div class="sys-block"><h4>Outcome</h4><p>Demonstrates environment separation with approval gates and isolated credentials.</p><!-- DRAFT: needs owner approval (outcome line) --></div>
+        <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-6" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+      </article>
+      <article class="project-card">
         <h3>Multi-Container System with Database</h3>
-        <p class="project-problem">Problem: Real apps need databases. Running an app and a database together in production requires careful networking, configuration, and startup ordering.</p>
-        <ul class="project-bullets">
-          <li>Flask API and PostgreSQL running as separate containers connected via Docker Compose networking</li>
-          <li>Containers discover each other by service name — no hardcoded IPs, no fragile config</li>
-          <li>All secrets injected at runtime via environment variables, never stored in code or images</li>
-        </ul>
-        <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-5" target="_blank" class="project-link">View on GitHub →</a>
-      </div>
-
-      <div class="project-card" id="sys-docker-cicd">
-        <div class="project-top">
-          <div class="project-num"></div>
-          <div class="project-tags">
-            <span class="tag accent">Docker</span>
-            <span class="tag accent">GitHub Actions</span>
-            <span class="tag">Python Flask</span>
-            <span class="tag">EC2</span>
-          </div>
+        <div class="sys-block"><h4>Challenge</h4><p>Real apps need databases. Running an app and a database together in production requires careful networking, configuration, and startup ordering.</p></div>
+        <div class="sys-block"><h4>Approach</h4>
+          <ul class="project-bullets">
+            <li>Flask API and PostgreSQL running as separate containers connected via Docker Compose networking.</li>
+            <li>Containers discover each other by service name: no hardcoded IPs, no fragile config.</li>
+            <li>All secrets injected at runtime via environment variables, never stored in code or images.</li>
+          </ul>
         </div>
+        <div class="sys-block"><h4>Infrastructure</h4><div class="project-tags"><span class="tag accent">Docker Compose</span><span class="tag accent">PostgreSQL</span><span class="tag">Flask API</span><span class="tag">EC2</span></div></div>
+        <div class="sys-block"><h4>Outcome</h4><p>Demonstrates a multi-container service with runtime-injected secrets.</p><!-- DRAFT: needs owner approval (outcome line) --></div>
+        <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-5" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+      </article>
+      <article class="project-card" id="sys-docker-cicd">
         <h3>Docker-Based CI/CD Pipeline</h3>
-        <p class="project-problem">Problem: Deploying raw code to a server means the server must be configured for every app. One wrong dependency breaks everything.</p>
-        <ul class="project-bullets">
-          <li>Containerized a Python Flask app with Docker — server only needs Docker installed, nothing else</li>
-          <li>Three-job pipeline: tests run inside the container, image pushed to Docker Hub tagged with Git commit SHA, EC2 pulls and runs the image</li>
-          <li>Automatic rollback to previous image by SHA if health check fails after deploy</li>
-        </ul>
-        <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-4" target="_blank" class="project-link">View on GitHub →</a>
-      </div>
-
+        <div class="sys-block"><h4>Challenge</h4><p>Deploying raw code to a server means the server must be configured for every app. One wrong dependency breaks everything.</p></div>
+        <div class="sys-block"><h4>Approach</h4>
+          <ul class="project-bullets">
+            <li>Containerised a Python Flask app with Docker. The server only needs Docker installed, nothing else.</li>
+            <li>Three-job pipeline: tests run inside the container, image pushed to Docker Hub tagged with Git commit SHA, EC2 pulls and runs the image.</li>
+            <li>Automatic rollback to previous image by SHA if health check fails after deploy.</li>
+          </ul>
+        </div>
+        <div class="sys-block"><h4>Infrastructure</h4><div class="project-tags"><span class="tag accent">Docker</span><span class="tag accent">GitHub Actions</span><span class="tag">Python Flask</span><span class="tag">EC2</span></div></div>
+        <div class="sys-block"><h4>Outcome</h4><p>Demonstrates a containerised delivery pipeline with health checks and automatic rollback.</p><!-- DRAFT: needs owner approval (outcome line) --></div>
+        <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-4" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+      </article>
     </div>
 
     <div class="show-more-wrap">
       <button type="button" class="show-more-btn" id="showMoreBtn">Show more projects</button>
     </div>
-
   </div>
 </section>
 
