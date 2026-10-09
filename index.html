@@ -409,82 +409,96 @@ nav.scrolled {
 }
 
 /* ─── SERVICES ───────────────────────────────────────────────── */
-#services { padding-top: 5rem; padding-bottom: 0; }
+#services { padding-top: 5rem; padding-bottom: 3rem; border-top: 1px solid var(--border); }
 
-.services-header {
-  margin-bottom: 3rem;
-}
+.services-header { margin-bottom: 1rem; }
+.services-header .section-desc { margin-bottom: 2rem; }
 
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  border-top: 1px solid var(--border);
-  border-left: 1px solid var(--border);
-}
+.lifecycle { list-style: none; max-width: 900px; }
 
-.service-card {
-  padding: 2.4rem;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  background: transparent;
-  transition: background var(--t);
+.svc {
   position: relative;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 2rem;
+  padding-bottom: 3.2rem;
 }
 
-.service-card::before {
+/* thin line linking 01 to 07 */
+.svc:not(:last-child)::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 400ms var(--ease);
+  left: 27px;
+  top: 56px;
+  bottom: 0;
+  width: 1px;
+  background: var(--border-strong);
 }
 
-.service-card:hover { background: rgba(255,255,255,0.018); }
-.service-card:hover::before { transform: scaleX(1); }
-
-.service-icon {
-  width: 36px;
-  height: 36px;
-  margin-bottom: 2rem;
-  opacity: 0.45;
+.svc-num {
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--accent);
+  background: var(--bg);
+  color: var(--accent-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  position: relative;
 }
 
-.service-icon svg {
-  width: 100%;
-  height: 100%;
-  fill: none;
-  stroke: var(--text);
-  stroke-width: 1.5;
-  stroke-linecap: square;
-  stroke-linejoin: miter;
-}
+.svc-body { padding-top: 0.3rem; }
+.svc-body h3 { font-size: 1.45rem; margin-bottom: 0.6rem; }
+.svc-outcome { color: var(--accent-light); font-size: 1.02rem; line-height: 1.5; margin-bottom: 1rem; }
+.svc-intro { color: var(--text-muted); font-size: 0.94rem; line-height: 1.7; margin-bottom: 1rem; max-width: 640px; }
 
-.service-system-label {
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--accent);
+.svc-bullets {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem 2rem;
   margin-bottom: 1.2rem;
-  opacity: 0.8;
 }
 
-.service-card h3 {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  letter-spacing: -0.02em;
+.svc-bullets li {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  position: relative;
+  padding-left: 1.2rem;
 }
 
-.service-card p {
-  font-size: 0.93rem;
-  color: var(--text-muted);
-  line-height: 1.8;
+.svc-bullets li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  position: absolute;
+  left: 0;
+  top: 0.62rem;
+  transform: rotate(45deg);
 }
+
+.svc-deliv { color: var(--text); font-size: 0.94rem; margin-bottom: 1.2rem; padding-left: 1rem; border-left: 2px solid var(--accent); }
+
+.practice-link {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--accent-light);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  border-bottom: 1px solid rgba(141,180,251,0.35);
+  padding-bottom: 0.1rem;
+  transition: color var(--t), border-color var(--t);
+}
+
+.practice-link:hover { color: var(--text); border-color: var(--text); }
+
+.services-note { max-width: 900px; font-size: 0.82rem; color: var(--text-muted); line-height: 1.7; margin-top: 0.5rem; }
 
 /* ─── PROJECTS ───────────────────────────────────────────────── */
 #projects { padding-bottom: 0; }
@@ -933,11 +947,10 @@ nav.menu-open .nav-toggle-bar::after  { transform: translateY(-6px) rotate(-45de
   .problem-list { grid-template-columns: 1fr; }
   #problem { padding: 4rem 0; }
 
-  .services-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .service-card { padding: 2.2rem 1.8rem; }
+  .svc { grid-template-columns: 40px 1fr; gap: 1.1rem; }
+  .svc-num { width: 40px; height: 40px; font-size: 0.75rem; }
+  .svc:not(:last-child)::before { left: 19px; top: 40px; }
+  .svc-bullets { grid-template-columns: 1fr; }
 
   .project-card {
     padding: 2.5rem 0;
@@ -1065,36 +1078,119 @@ footer .container { flex-direction: column; gap: 1rem; text-align: center; }
 <section id="services">
   <div class="container">
     <div class="services-header">
-      <div class="section-label">Infrastructure capabilities</div>
-      <h2 class="section-title">End-to-end deployment automation</h2>
-      <p class="section-desc">Systems designed with operational reliability in mind.</p>
+      <div class="section-label">Services</div>
+      <h2 class="section-title">From first assessment to ongoing operations.</h2>
+      <p class="section-desc">Seven services that follow the life of a production system.</p>
     </div>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-        <div class="service-system-label">DEPLOYMENT SYSTEM</div>
-        <h3>CI/CD Pipeline Setup</h3>
-        <p>Automated testing and deployment on every code push. No more manual deployments. No more "works on my machine."</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-        <div class="service-system-label">CONTAINER RUNTIME SYSTEM</div>
-        <h3>Docker & Containerization</h3>
-        <p>Your app runs identically in development, staging, and production. Consistent environments, consistent results.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-        <div class="service-system-label">SERVICE ORCHESTRATION SYSTEM</div>
-        <h3>Multi-Service Systems</h3>
-        <p>Connect your app, database, and services into a reliable system with Docker Compose. Proper networking and config management.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <div class="service-system-label">ENVIRONMENT MANAGEMENT SYSTEM</div>
-        <h3>Staging & Production Environments</h3>
-        <p>Test before it reaches users. Separate environments with approval gates so bad code never reaches production automatically.</p>
-      </div>
-    </div>
+    <ol class="lifecycle">
+      <li class="svc" id="service-01">
+        <div class="svc-num" aria-hidden="true">01</div>
+        <div class="svc-body">
+          <h3>Infrastructure Assessment</h3>
+          <p class="svc-outcome">Find out what&rsquo;s wrong before it costs you.</p>
+          <p class="svc-intro">A focused review of your existing cloud and deployment environment, delivered as a written report.</p>
+          <ul class="svc-bullets">
+            <li>Reliability and failure risks</li>
+            <li>Security configuration</li>
+            <li>Deployment process</li>
+            <li>Backup and recovery readiness</li>
+            <li>Monitoring gaps</li>
+            <li>Cloud cost</li>
+          </ul>
+          <p class="svc-deliv">Findings, severity, business impact and a prioritised roadmap.</p>
+        </div>
+      </li>
+      <li class="svc" id="service-02">
+        <div class="svc-num" aria-hidden="true">02</div>
+        <div class="svc-body">
+          <h3>Cloud Architecture &amp; Infrastructure</h3>
+          <p class="svc-outcome">Design the foundation before you deploy.</p>
+          <ul class="svc-bullets">
+            <li>AWS environment design</li>
+            <li>Private networking and isolation</li>
+            <li>Access control (IAM)</li>
+            <li>Compute, storage and databases</li>
+            <li>DNS and TLS</li>
+            <li>Separate staging and production environments</li>
+          </ul>
+          <a href="#sys-webhook" class="practice-link" data-target="sys-webhook">See it in practice: Webhook Delivery System <span aria-hidden="true">→</span></a>
+        </div>
+      </li>
+      <li class="svc" id="service-03">
+        <div class="svc-num" aria-hidden="true">03</div>
+        <div class="svc-body">
+          <h3>Cloud Migration</h3>
+          <p class="svc-outcome">Move from a starter setup to infrastructure you control.</p>
+          <ul class="svc-bullets">
+            <li>From starter hosting platforms to a structured AWS environment</li>
+            <li>From single-server setups to separate staging and production</li>
+            <li>Planned cutover with a rollback path</li>
+            <li>Documentation of what was moved and how</li>
+          </ul>
+          <a href="#sys-operationalizing" class="practice-link" data-target="sys-operationalizing">See it in practice: Operationalizing an Existing Application <span aria-hidden="true">→</span></a>
+        </div>
+      </li>
+      <li class="svc" id="service-04">
+        <div class="svc-num" aria-hidden="true">04</div>
+        <div class="svc-body">
+          <h3>DevOps &amp; Deployment Automation</h3>
+          <p class="svc-outcome">Turn deployment into a repeatable engineering process.</p>
+          <ul class="svc-bullets">
+            <li>Automated testing and deployment pipelines</li>
+            <li>Containerised applications</li>
+            <li>Staging and production with approval gates</li>
+            <li>Health checks and automatic rollback</li>
+            <li>Secrets kept out of code and images</li>
+          </ul>
+          <a href="#sys-docker-cicd" class="practice-link" data-target="sys-docker-cicd">See it in practice: Docker-Based CI/CD Pipeline <span aria-hidden="true">→</span></a>
+        </div>
+      </li>
+      <li class="svc" id="service-05">
+        <div class="svc-num" aria-hidden="true">05</div>
+        <div class="svc-body">
+          <h3>Reliability &amp; Observability</h3>
+          <p class="svc-outcome">Know what is happening in production.</p>
+          <ul class="svc-bullets">
+            <li>Metrics and dashboards</li>
+            <li>Alerting on failures and error rates</li>
+            <li>Health checks</li>
+            <li>Service-level visibility across components</li>
+          </ul>
+          <a href="#sys-webhook" class="practice-link" data-target="sys-webhook">See it in practice: Webhook Delivery System <span aria-hidden="true">→</span></a>
+        </div>
+      </li>
+      <li class="svc" id="service-06">
+        <div class="svc-num" aria-hidden="true">06</div>
+        <div class="svc-body">
+          <h3>Infrastructure Security</h3>
+          <p class="svc-outcome">Secure the infrastructure your application depends on.</p>
+          <ul class="svc-bullets">
+            <li>Least-privilege access</li>
+            <li>Network isolation between services</li>
+            <li>Secrets management</li>
+            <li>TLS everywhere</li>
+            <li>No long-lived credentials in CI/CD</li>
+          </ul>
+          <a href="#sys-waitlist" class="practice-link" data-target="sys-waitlist">See it in practice: Production Waitlist API <span aria-hidden="true">→</span></a>
+        </div>
+      </li>
+      <li class="svc" id="service-07">
+        <div class="svc-num" aria-hidden="true">07</div>
+        <div class="svc-body">
+          <h3>Managed Infrastructure</h3>
+          <p class="svc-outcome">Keep your production infrastructure running.</p>
+          <p class="svc-intro">For teams that don&rsquo;t want to build an infrastructure function of their own. Defined monthly scope.</p>
+          <ul class="svc-bullets">
+            <li>Monitoring review</li>
+            <li>Deployment support</li>
+            <li>Maintenance and updates</li>
+            <li>Cost reviews</li>
+            <li>Incident assistance during agreed support hours</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+    <p class="services-note">We can also build custom applications and APIs when infrastructure and application engineering need to be delivered together.</p>
   </div>
 </section>
 
@@ -1111,7 +1207,7 @@ footer .container { flex-direction: column; gap: 1rem; text-align: center; }
     <div id="projects-visible">
 
 <!-- Project 09 — Webhook Delivery System -->
-      <div class="project-card">
+      <div class="project-card" id="sys-webhook">
         <div class="project-top">
           <div class="project-num"></div>
           <div class="project-tags">
@@ -1137,7 +1233,7 @@ footer .container { flex-direction: column; gap: 1rem; text-align: center; }
       </div>
 
       <!-- Project 08 -->
-      <div class="project-card">
+      <div class="project-card" id="sys-waitlist">
         <div class="project-top">
           <div class="project-num"></div>
           <div class="project-tags">
@@ -1166,7 +1262,7 @@ footer .container { flex-direction: column; gap: 1rem; text-align: center; }
       </div>
 
        <!-- Project 07 -->
-      <div class="project-card">
+      <div class="project-card" id="sys-operationalizing">
         <div class="project-top">
           <div class="project-num"></div>
           <div class="project-tags">
@@ -1233,7 +1329,7 @@ footer .container { flex-direction: column; gap: 1rem; text-align: center; }
         <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-5" target="_blank" class="project-link">View on GitHub →</a>
       </div>
 
-      <div class="project-card">
+      <div class="project-card" id="sys-docker-cicd">
         <div class="project-top">
           <div class="project-num"></div>
           <div class="project-tags">
@@ -1355,6 +1451,17 @@ footer .container { flex-direction: column; gap: 1rem; text-align: center; }
   const btn  = document.getElementById('showMoreBtn');
   const more = document.getElementById('projects-more');
   let open = false;
+
+  function revealTarget() {
+    const t = location.hash && document.querySelector(location.hash);
+    if (t && more.contains(t) && !open) { open = true; more.classList.add('open'); btn.textContent = 'Show less'; }
+  }
+  document.querySelectorAll('.practice-link').forEach(a => a.addEventListener('click', () => {
+    const t = document.getElementById(a.dataset.target);
+    if (t && more.contains(t) && !open) { open = true; more.classList.add('open'); btn.textContent = 'Show less'; }
+  }));
+  window.addEventListener('hashchange', revealTarget);
+  revealTarget();
 
   btn.addEventListener('click', function() {
     open = !open;
