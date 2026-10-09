@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Radiance IT Solution — DevOps & Deployment Automation</title>
+<title>Radiance IT Solution: Cloud Infrastructure &amp; DevOps Engineering</title>
+<meta name="description" content="Radiance designs, automates and operates cloud infrastructure for agencies, product teams and growing businesses.">
 
 <link rel="icon" type="image/png" href="favicon-v6.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,8 +25,8 @@
 
   --text:         #f2f2f7;
   --text-soft:    #c0c0cc;
-  --text-muted:   #6e6e7a;
-  --text-faint:   #3a3a44;
+  --text-muted:   #9a9aa8;
+  --text-faint:   #86868f;
 
   --border:       rgba(242,242,247,0.07);
   --border-mid:   rgba(242,242,247,0.12);
@@ -33,6 +34,7 @@
 
   --accent:       #4f8ef7;
   --accent-dim:   rgba(79,142,247,0.12);
+  --accent-light: #8db4fb;
 
   --max-w:        1360px;
   --gutter:       3.5rem;
@@ -258,56 +260,79 @@ nav.scrolled {
   display: flex;
   gap: 0.9rem;
   flex-wrap: wrap;
-  margin-bottom: 3.5rem;
 }
 
-/* ─── STAT ROW ───────────────────────────────────────────────── */
-.stat-row {
-  display: flex;
-  align-items: flex-start;
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.hero-layout h1 { font-size: clamp(2.6rem, 4.6vw, 4.8rem); line-height: 1; margin-bottom: 1.8rem; }
+.hero-layout .hero-sub { color: var(--text); font-size: 1.2rem; line-height: 1.6; margin-bottom: 1rem; }
+.hero-support { max-width: 560px; margin-bottom: 2.6rem; color: var(--text-muted); }
+
+.hero-visual { min-width: 0; }
+
+.arch { width: 100%; height: auto; display: block; }
+.arch-lines path {
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 6;
+  animation: flow 1.2s linear infinite;
+}
+.arch-nodes rect { fill: var(--surface-2); stroke: var(--border-strong); stroke-width: 1; }
+.arch-main rect { stroke: var(--accent); }
+.arch-nodes text {
+  fill: var(--text);
+  font-family: var(--font);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+.arch-caps text {
+  fill: var(--text-muted);
+  font-family: var(--font);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-anchor: middle;
+}
+.arch-caps .cap-start { text-anchor: start; }
+@keyframes flow { to { stroke-dashoffset: -12; } }
+
+/* ─── PROBLEM ────────────────────────────────────────────────── */
+#problem { border-top: 1px solid var(--border); padding: 5rem 0; }
+.problem-sub { margin-bottom: 3rem; font-size: 1.05rem; color: var(--text-soft); }
+.problem-lead { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent-light); margin-bottom: 1.6rem; }
+.problem-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 0;
   border-top: 1px solid var(--border);
-  padding-top: 3rem;
-  max-width: 640px;
+  margin-bottom: 2.4rem;
 }
-
-.stat {
-  flex: 1;
-  padding-right: 2.5rem;
-  border-right: 1px solid var(--border);
+.problem-list li {
+  color: var(--text-soft);
+  line-height: 1.7;
+  padding: 1.4rem 2rem 1.4rem 1.4rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
 }
-
-.stat:last-child {
-  padding-right: 0;
-  border-right: none;
-  padding-left: 2.5rem;
+.problem-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 2.05rem;
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  transform: rotate(45deg);
 }
-
-.stat:not(:first-child):not(:last-child) {
-  padding-left: 2.5rem;
-}
-
-.stat-num {
-  font-size: 2.6rem;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  color: var(--text);
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-
-.stat-num span {
-  font-size: 1.6rem;
-  color: var(--accent);
-}
-
-.stat-label {
-  font-size: 0.74rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
+.problem-close { margin-bottom: 1.8rem; color: var(--text); }
 
 /* ─── BUTTONS ────────────────────────────────────────────────── */
 .btn-primary,
@@ -330,14 +355,14 @@ nav.scrolled {
 }
 
 .btn-primary {
-  background: var(--text);
+  background: var(--accent);
   color: #050506;
-  border: 1px solid var(--text);
+  border: 1px solid var(--accent);
 }
 
 .btn-primary:hover {
-  background: transparent;
-  color: var(--text);
+  background: var(--accent-light);
+  border-color: var(--accent-light);
 }
 
 .btn-ghost {
@@ -385,82 +410,138 @@ nav.scrolled {
 }
 
 /* ─── SERVICES ───────────────────────────────────────────────── */
-#services { padding-top: 5rem; padding-bottom: 0; }
+#services { padding-top: 5rem; padding-bottom: 3rem; border-top: 1px solid var(--border); }
 
-.services-header {
-  margin-bottom: 3rem;
-}
+.services-header { margin-bottom: 1rem; }
+.services-header .section-desc { margin-bottom: 2rem; }
 
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  border-top: 1px solid var(--border);
-  border-left: 1px solid var(--border);
-}
+.lifecycle { list-style: none; max-width: 900px; }
 
-.service-card {
-  padding: 2.4rem;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  background: transparent;
-  transition: background var(--t);
+.svc {
   position: relative;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 2rem;
+  padding-bottom: 3.2rem;
 }
 
-.service-card::before {
+/* thin line linking 01 to 07 */
+.svc:not(:last-child)::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 400ms var(--ease);
+  left: 27px;
+  top: 56px;
+  bottom: 0;
+  width: 1px;
+  background: var(--border-strong);
 }
 
-.service-card:hover { background: rgba(255,255,255,0.018); }
-.service-card:hover::before { transform: scaleX(1); }
-
-.service-icon {
-  width: 36px;
-  height: 36px;
-  margin-bottom: 2rem;
-  opacity: 0.45;
+.svc-num {
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--accent);
+  background: var(--bg);
+  color: var(--accent-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  position: relative;
 }
 
-.service-icon svg {
-  width: 100%;
-  height: 100%;
-  fill: none;
-  stroke: var(--text);
-  stroke-width: 1.5;
-  stroke-linecap: square;
-  stroke-linejoin: miter;
-}
+.svc-body { padding-top: 0.3rem; }
+.svc-body h3 { font-size: 1.45rem; margin-bottom: 0.6rem; }
+.svc-outcome { color: var(--accent-light); font-size: 1.02rem; line-height: 1.5; margin-bottom: 1rem; }
+.svc-intro { color: var(--text-muted); font-size: 0.94rem; line-height: 1.7; margin-bottom: 1rem; max-width: 640px; }
 
-.service-system-label {
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--accent);
+.svc-bullets {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem 2rem;
   margin-bottom: 1.2rem;
-  opacity: 0.8;
 }
 
-.service-card h3 {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  letter-spacing: -0.02em;
+.svc-bullets li {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  position: relative;
+  padding-left: 1.2rem;
 }
 
-.service-card p {
-  font-size: 0.93rem;
-  color: var(--text-muted);
-  line-height: 1.8;
+.svc-bullets li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  position: absolute;
+  left: 0;
+  top: 0.62rem;
+  transform: rotate(45deg);
 }
+
+.svc-deliv { color: var(--text); font-size: 0.94rem; margin-bottom: 1.2rem; padding-left: 1rem; border-left: 2px solid var(--accent); }
+
+.practice-link {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--accent-light);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  border-bottom: 1px solid rgba(141,180,251,0.35);
+  padding-bottom: 0.1rem;
+  transition: color var(--t), border-color var(--t);
+}
+
+.practice-link:hover { color: var(--text); border-color: var(--text); }
+
+.services-note { max-width: 900px; font-size: 0.82rem; color: var(--text-muted); line-height: 1.7; margin-top: 0.5rem; }
+
+/* ─── ALONGSIDE / WHO WE HELP / HOW WE WORK ──────────────────── */
+#alongside, #who-we-help, #how-we-work { border-top: 1px solid var(--border); padding: 5rem 0; }
+.alongside-text { max-width: 720px; font-size: 1.1rem; color: var(--text-soft); }
+
+.help-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+.help-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border-mid);
+  padding: 2rem;
+  transition: transform var(--t), border-color var(--t);
+}
+.help-card:hover { transform: translateY(-3px); border-color: var(--border-strong); }
+.help-card h3 { font-size: 1.2rem; margin-bottom: 0.9rem; }
+.help-card p { font-size: 0.95rem; line-height: 1.75; }
+
+.steps { list-style: none; display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.2rem; margin-top: 3rem; }
+.steps li { border-top: 1px solid var(--accent); padding-top: 1.2rem; }
+.step-n { display: block; color: var(--accent-light); font-size: 0.74rem; letter-spacing: 0.16em; margin-bottom: 0.9rem; }
+.steps h3 { font-size: 1.1rem; margin-bottom: 0.7rem; }
+.steps p { font-size: 0.88rem; line-height: 1.65; color: var(--text-muted); }
+.steps-note { margin-top: 2rem; color: var(--text); }
+
+.ladder { margin-top: 4.5rem; padding-top: 3rem; border-top: 1px solid var(--border); }
+.ladder-label { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent-light); margin-bottom: 1.8rem; }
+.ladder-steps { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; align-items: end; }
+.ladder-steps li {
+  background: var(--surface-2);
+  border: 1px solid var(--border-mid);
+  border-top: 2px solid var(--accent);
+  padding: 1.2rem 1.2rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.ladder-steps li:nth-child(1) { min-height: 120px; }
+.ladder-steps li:nth-child(2) { min-height: 160px; }
+.ladder-steps li:nth-child(3) { min-height: 200px; }
+.ladder-steps li:nth-child(4) { min-height: 240px; }
+.ladder-steps strong { font-size: 1.05rem; letter-spacing: -0.01em; }
+.ladder-steps span { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+.ladder-close { margin-top: 2rem; color: var(--text); max-width: 640px; }
 
 /* ─── PROJECTS ───────────────────────────────────────────────── */
 #projects { padding-bottom: 0; }
@@ -474,13 +555,20 @@ nav.scrolled {
   padding-bottom: 3rem;
 }
 
-.projects-header .section-title {
-  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
-  max-width: 640px;
-  color: var(--text-soft);
-  font-weight: 400;
-  letter-spacing: -0.02em;
+.projects-header { margin-bottom: 2rem; padding-bottom: 0; border-bottom: none; }
+.projects-desc { margin-bottom: 0; }
+
+.sys-block { margin-bottom: 1.6rem; max-width: 860px; }
+.sys-block h4 {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent-light);
+  margin-bottom: 0.7rem;
 }
+.sys-block > p { color: var(--text-soft); font-size: 0.96rem; line-height: 1.8; }
+.sys-block .project-tags { justify-content: flex-start; }
+.sys-block .project-bullets { margin-bottom: 0; }
 
 /* Project cards — stacked with dividers, no box borders */
 #projects-visible,
@@ -657,6 +745,29 @@ nav.scrolled {
 
 .show-more-btn:hover::before { width: 28px; }
 
+/* ─── TECHNOLOGY / ASSESSMENT BAND ───────────────────────────── */
+#technology { border-top: 1px solid var(--border); padding: 5rem 0; }
+.tech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.4rem 2rem; margin-top: 3rem; }
+.tech-group h3 { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent-light); margin-bottom: 1rem; }
+
+#assessment { border-top: 1px solid var(--border); background: var(--surface-2); padding: 5rem 0; }
+.assessment-sub { color: var(--text); font-size: 1.1rem; margin-bottom: 2rem; }
+.assessment-items {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  max-width: 800px;
+  margin-bottom: 2.4rem;
+}
+.assessment-items li {
+  color: var(--text-soft);
+  border: 1px solid var(--border-mid);
+  background: var(--surface-3);
+  padding: 0.9rem 1rem;
+  font-size: 0.92rem;
+}
+
 /* ─── ABOUT ──────────────────────────────────────────────────── */
 #about {
   border-top: 1px solid var(--border);
@@ -816,6 +927,56 @@ footer p {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* ─── FOCUS, SCROLL OFFSET, REDUCED MOTION ───────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 3px;
+}
+
+section[id], .project-card[id] { scroll-margin-top: 72px; }
+
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 1px solid var(--border-mid);
+  cursor: pointer;
+  position: relative;
+  color: var(--text);
+}
+
+.nav-toggle-bar,
+.nav-toggle-bar::before,
+.nav-toggle-bar::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+  transition: transform var(--t), opacity var(--t);
+}
+
+.nav-toggle-bar { top: 20px; }
+.nav-toggle-bar::before { left: 0; top: -6px; }
+.nav-toggle-bar::after  { left: 0; top: 6px; }
+
+nav.menu-open .nav-toggle-bar { background: transparent; }
+nav.menu-open .nav-toggle-bar::before { transform: translateY(6px) rotate(45deg); }
+nav.menu-open .nav-toggle-bar::after  { transform: translateY(-6px) rotate(-45deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .fade-up, .fade-up-2, .fade-up-3, .fade-up-4 { opacity: 1; transform: none; }
+}
+
 /* ─── RESPONSIVE ─────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   :root { --gutter: 2.5rem; }
@@ -826,6 +987,12 @@ footer p {
   }
 }
 
+@media (max-width: 1024px) {
+  .steps { grid-template-columns: repeat(3, 1fr); }
+  .ladder-steps { grid-template-columns: repeat(2, 1fr); }
+  .ladder-steps li:nth-child(n) { min-height: 0; }
+}
+
 @media (max-width: 768px) {
   :root { --gutter: 1.6rem; }
 
@@ -833,13 +1000,43 @@ footer p {
   h2 { font-size: clamp(2rem, 7vw, 3rem); }
   section { padding: 6rem 0; }
 
-  .nav-links { display: none; }
+  .nav-toggle { display: block; }
 
-  .services-grid {
-    grid-template-columns: 1fr;
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: rgba(5,5,6,0.98);
+    border-bottom: 1px solid var(--border);
+    padding: 0.5rem var(--gutter) 1.5rem;
   }
 
-  .service-card { padding: 2.2rem 1.8rem; }
+  nav.menu-open { background: rgba(5,5,6,0.98); }
+  nav.menu-open .nav-links { display: flex; }
+
+  .nav-links a { padding: 1rem 0; border-bottom: 1px solid var(--border); }
+  .nav-links .nav-cta { margin-top: 1rem; text-align: center; border: 1px solid var(--accent); background: var(--accent); color: #050506; }
+
+  .hero-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .problem-list { grid-template-columns: 1fr; }
+  #problem { padding: 4rem 0; }
+
+  #alongside, #who-we-help, #how-we-work { padding: 4rem 0; }
+  .help-grid { grid-template-columns: 1fr; }
+  .tech-grid, .assessment-items { grid-template-columns: 1fr; }
+  #technology, #assessment { padding: 4rem 0; }
+  .steps { grid-template-columns: 1fr; gap: 1.6rem; }
+  .ladder-steps { grid-template-columns: 1fr; }
+  .ladder-steps li:nth-child(n) { min-height: 0; }
+  .svc { grid-template-columns: 40px 1fr; gap: 1.1rem; }
+  .svc-num { width: 40px; height: 40px; font-size: 0.75rem; }
+  .svc:not(:last-child)::before { left: 19px; top: 40px; }
+  .svc-bullets { grid-template-columns: 1fr; }
 
   .project-card {
     padding: 2.5rem 0;
@@ -853,12 +1050,6 @@ footer p {
   }
 
   .project-tags { justify-content: flex-start; }
-
-  .stat-row {
-    gap: 0;
-  }
-
-  .stat-num { font-size: 2rem; }
 
   .about-grid { grid-template-columns: 1fr; gap: 3rem; }
 
@@ -886,82 +1077,263 @@ footer .container { flex-direction: column; gap: 1rem; text-align: center; }
 </head>
 <body>
 
-<nav id="navbar">
+<nav id="navbar" aria-label="Main">
   <div class="nav-inner">
     <a href="#hero" class="nav-brand">Radiance</a>
-    <div class="nav-links">
+    <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+      <span class="nav-toggle-bar"></span>
+    </button>
+    <div class="nav-links" id="navLinks">
       <a href="#services">Services</a>
-      <a href="#projects">Systems</a>
+      <a href="#how-we-work">How we work</a>
+      <a href="#projects">Engineering Systems</a>
       <a href="#about">About</a>
-      <a href="#contact" class="nav-cta">Get in touch</a>
+      <a href="#contact">Contact</a>
+      <a href="mailto:wkvp.randunu@gmail.com?subject=Infrastructure%20assessment%20request" class="nav-cta">Request an assessment</a>
     </div>
   </div>
 </nav>
 
 <section id="hero">
-  <div class="hero-inner">
-    <div class="hero-eyebrow fade-up">DevOps & Deployment Automation</div>
-    <h1 class="fade-up-2">
-      Infrastructure designed<br>
-      <span class="highlight">for safe deployments</span><br>
-      <span class="highlight2">and reliable operations.</span>
-    </h1>
-    <p class="hero-sub fade-up-3">
-      Deployment infrastructure and operational workflows designed for safe, consistent software releases.
-    </p>
-    <div class="hero-actions fade-up-4">
-      <a href="#contact" class="btn-primary">Start a conversation</a>
-      <!--<a href="#projects" class="btn-ghost">See my work</a> -->
-    </div>
-    <div class="stat-row fade-up-4">
-      <div class="stat">
-        <div class="stat-num">9<span>+</span></div>
-        <div class="stat-label">Production-ready systems built</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">0</div>
-        <div class="stat-label">Manual deploys needed</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">100<span>%</span></div>
-        <div class="stat-label">Automated rollback coverage</div>
+  <div class="hero-inner hero-layout">
+    <div class="hero-copy">
+      <div class="hero-eyebrow fade-up">Cloud Infrastructure &amp; DevOps Engineering</div>
+      <h1 class="fade-up-2">
+        Cloud infrastructure <span class="highlight2">built for reliable production.</span>
+      </h1>
+      <p class="hero-sub fade-up-3">
+        We design, automate and operate the infrastructure behind modern software.
+      </p>
+      <p class="hero-support fade-up-3">
+        For agencies, product teams and growing businesses that need dependable production without building an infrastructure team.
+      </p>
+      <div class="hero-actions fade-up-4">
+        <a href="#contact" class="btn-primary">Discuss an infrastructure project</a>
+        <a href="#services" class="btn-ghost">Explore our services</a>
       </div>
     </div>
+    <div class="hero-visual fade-up-4">
+      <svg class="arch" viewBox="0 0 560 330" role="img" aria-labelledby="archTitle archDesc">
+        <title id="archTitle">Production architecture overview</title>
+        <desc id="archDesc">Users reach a load balancer running Nginx, which forwards traffic to the application and then to the database. A CI/CD pipeline deploys to the application, and a monitoring system watches it.</desc>
+        <!-- DRAFT: needs owner approval (diagram alt text) -->
+        <g class="arch-lines" fill="none">
+          <path d="M110 165 H150"/>
+          <path d="M250 165 H290"/>
+          <path d="M390 165 H430"/>
+          <path d="M340 75 V143"/>
+          <path d="M340 255 V187"/>
+        </g>
+        <g class="arch-nodes">
+          <g><rect x="10"  y="143" width="100" height="44"/><text x="60"  y="170">Users</text></g>
+          <g><rect x="150" y="143" width="100" height="44"/><text x="200" y="170">Nginx</text></g>
+          <g class="arch-main"><rect x="290" y="143" width="100" height="44"/><text x="340" y="170">Application</text></g>
+          <g><rect x="430" y="143" width="100" height="44"/><text x="480" y="170">Database</text></g>
+          <g><rect x="290" y="31"  width="100" height="44"/><text x="340" y="58">CI/CD</text></g>
+          <g><rect x="290" y="255" width="100" height="44"/><text x="340" y="282">Monitoring</text></g>
+        </g>
+        <g class="arch-caps">
+          <text x="200" y="125">Load balancer</text>
+          <text class="cap-start" x="408" y="58">Deploy path</text>
+          <text class="cap-start" x="408" y="282">Metrics and alerts</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="container">
+    <div class="section-label">The problem</div>
+    <h2 class="section-title">Your application is only as reliable as the infrastructure running it.</h2>
+    <p class="section-desc problem-sub">We help teams move from &ldquo;the application works&rdquo; to &ldquo;the application is ready for production.&rdquo;</p>
+    <h3 class="problem-lead">When teams come to us</h3>
+    <ul class="problem-list">
+      <li>Your cloud bill is growing faster than your usage.</li>
+      <li>A customer or auditor is asking about security, data location or recovery, and you can&rsquo;t answer with confidence.</li>
+      <li>Releases feel risky, and outages take too long to explain.</li>
+      <li>The platform you started on no longer fits what you&rsquo;re building.</li>
+      <li>The person who set up production has moved on, or is stretched thin.</li>
+      <li>You&rsquo;re about to scale and aren&rsquo;t sure what will break first.</li>
+    </ul>
+    <p class="problem-close">If one of these sounds familiar, start with an infrastructure assessment.</p>
+    <a href="mailto:wkvp.randunu@gmail.com?subject=Infrastructure%20assessment%20request" class="btn-primary">Request an assessment</a>
   </div>
 </section>
 
 <section id="services">
   <div class="container">
     <div class="services-header">
-      <div class="section-label">Infrastructure capabilities</div>
-      <h2 class="section-title">End-to-end deployment automation</h2>
-      <p class="section-desc">Systems designed with operational reliability in mind.</p>
+      <div class="section-label">Services</div>
+      <h2 class="section-title">From first assessment to ongoing operations.</h2>
+      <p class="section-desc">Seven services that follow the life of a production system.</p>
     </div>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-        <div class="service-system-label">DEPLOYMENT SYSTEM</div>
-        <h3>CI/CD Pipeline Setup</h3>
-        <p>Automated testing and deployment on every code push. No more manual deployments. No more "works on my machine."</p>
+    <ol class="lifecycle">
+      <li class="svc" id="service-01">
+        <div class="svc-num" aria-hidden="true">01</div>
+        <div class="svc-body">
+          <h3>Infrastructure Assessment</h3>
+          <p class="svc-outcome">Find out what&rsquo;s wrong before it costs you.</p>
+          <p class="svc-intro">A focused review of your existing cloud and deployment environment, delivered as a written report.</p>
+          <ul class="svc-bullets">
+            <li>Reliability and failure risks</li>
+            <li>Security configuration</li>
+            <li>Deployment process</li>
+            <li>Backup and recovery readiness</li>
+            <li>Monitoring gaps</li>
+            <li>Cloud cost</li>
+          </ul>
+          <p class="svc-deliv">Findings, severity, business impact and a prioritised roadmap.</p>
+        </div>
+      </li>
+      <li class="svc" id="service-02">
+        <div class="svc-num" aria-hidden="true">02</div>
+        <div class="svc-body">
+          <h3>Cloud Architecture &amp; Infrastructure</h3>
+          <p class="svc-outcome">Design the foundation before you deploy.</p>
+          <ul class="svc-bullets">
+            <li>AWS environment design</li>
+            <li>Private networking and isolation</li>
+            <li>Access control (IAM)</li>
+            <li>Compute, storage and databases</li>
+            <li>DNS and TLS</li>
+            <li>Separate staging and production environments</li>
+          </ul>
+          <a href="#sys-webhook" class="practice-link" data-target="sys-webhook">See it in practice: Webhook Delivery System <span aria-hidden="true">→</span></a>
+        </div>
+      </li>
+      <li class="svc" id="service-03">
+        <div class="svc-num" aria-hidden="true">03</div>
+        <div class="svc-body">
+          <h3>Cloud Migration</h3>
+          <p class="svc-outcome">Move from a starter setup to infrastructure you control.</p>
+          <ul class="svc-bullets">
+            <li>From starter hosting platforms to a structured AWS environment</li>
+            <li>From single-server setups to separate staging and production</li>
+            <li>Planned cutover with a rollback path</li>
+            <li>Documentation of what was moved and how</li>
+          </ul>
+          <a href="#sys-operationalizing" class="practice-link" data-target="sys-operationalizing">See it in practice: Operationalizing an Existing Application <span aria-hidden="true">→</span></a>
+        </div>
+      </li>
+      <li class="svc" id="service-04">
+        <div class="svc-num" aria-hidden="true">04</div>
+        <div class="svc-body">
+          <h3>DevOps &amp; Deployment Automation</h3>
+          <p class="svc-outcome">Turn deployment into a repeatable engineering process.</p>
+          <ul class="svc-bullets">
+            <li>Automated testing and deployment pipelines</li>
+            <li>Containerised applications</li>
+            <li>Staging and production with approval gates</li>
+            <li>Health checks and automatic rollback</li>
+            <li>Secrets kept out of code and images</li>
+          </ul>
+          <a href="#sys-docker-cicd" class="practice-link" data-target="sys-docker-cicd">See it in practice: Docker-Based CI/CD Pipeline <span aria-hidden="true">→</span></a>
+        </div>
+      </li>
+      <li class="svc" id="service-05">
+        <div class="svc-num" aria-hidden="true">05</div>
+        <div class="svc-body">
+          <h3>Reliability &amp; Observability</h3>
+          <p class="svc-outcome">Know what is happening in production.</p>
+          <ul class="svc-bullets">
+            <li>Metrics and dashboards</li>
+            <li>Alerting on failures and error rates</li>
+            <li>Health checks</li>
+            <li>Service-level visibility across components</li>
+          </ul>
+          <a href="#sys-webhook" class="practice-link" data-target="sys-webhook">See it in practice: Webhook Delivery System <span aria-hidden="true">→</span></a>
+        </div>
+      </li>
+      <li class="svc" id="service-06">
+        <div class="svc-num" aria-hidden="true">06</div>
+        <div class="svc-body">
+          <h3>Infrastructure Security</h3>
+          <p class="svc-outcome">Secure the infrastructure your application depends on.</p>
+          <ul class="svc-bullets">
+            <li>Least-privilege access</li>
+            <li>Network isolation between services</li>
+            <li>Secrets management</li>
+            <li>TLS everywhere</li>
+            <li>No long-lived credentials in CI/CD</li>
+          </ul>
+          <a href="#sys-waitlist" class="practice-link" data-target="sys-waitlist">See it in practice: Production Waitlist API <span aria-hidden="true">→</span></a>
+        </div>
+      </li>
+      <li class="svc" id="service-07">
+        <div class="svc-num" aria-hidden="true">07</div>
+        <div class="svc-body">
+          <h3>Managed Infrastructure</h3>
+          <p class="svc-outcome">Keep your production infrastructure running.</p>
+          <p class="svc-intro">For teams that don&rsquo;t want to build an infrastructure function of their own. Defined monthly scope.</p>
+          <ul class="svc-bullets">
+            <li>Monitoring review</li>
+            <li>Deployment support</li>
+            <li>Maintenance and updates</li>
+            <li>Cost reviews</li>
+            <li>Incident assistance during agreed support hours</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+    <p class="services-note">We can also build custom applications and APIs when infrastructure and application engineering need to be delivered together.</p>
+  </div>
+</section>
+
+<section id="alongside">
+  <div class="container">
+    <h2 class="section-title">Work with your existing engineering team.</h2>
+    <p class="alongside-text">Radiance doesn&rsquo;t replace your developers. We work alongside them on the infrastructure layer (design, automation and operations), so your engineers can stay focused on the product.</p>
+  </div>
+</section>
+
+<section id="who-we-help">
+  <div class="container">
+    <div class="section-label">Who we help</div>
+    <div class="help-grid">
+      <div class="help-card">
+        <h3>Software agencies</h3>
+        <p>An infrastructure partner for client projects that need cloud deployment, CI/CD, production environments or ongoing support.</p>
       </div>
-      <div class="service-card">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-        <div class="service-system-label">CONTAINER RUNTIME SYSTEM</div>
-        <h3>Docker & Containerization</h3>
-        <p>Your app runs identically in development, staging, and production. Consistent environments, consistent results.</p>
+      <div class="help-card">
+        <h3>Product and SaaS teams</h3>
+        <p>Infrastructure and reliability support as your product moves from development into production and begins to scale.</p>
       </div>
-      <div class="service-card">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-        <div class="service-system-label">SERVICE ORCHESTRATION SYSTEM</div>
-        <h3>Multi-Service Systems</h3>
-        <p>Connect your app, database, and services into a reliable system with Docker Compose. Proper networking and config management.</p>
+      <div class="help-card">
+        <h3>Founders and teams building with AI</h3>
+        <p>Applications built quickly with AI tools often work in a demo and strain under real users, real data and real security expectations. We take them from working to production-ready.</p>
       </div>
-      <div class="service-card">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <div class="service-system-label">ENVIRONMENT MANAGEMENT SYSTEM</div>
-        <h3>Staging & Production Environments</h3>
-        <p>Test before it reaches users. Separate environments with approval gates so bad code never reaches production automatically.</p>
+      <div class="help-card">
+        <h3>Growing businesses</h3>
+        <p>Cloud infrastructure without the cost of a full internal infrastructure team.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="how-we-work">
+  <div class="container">
+    <div class="section-label">How we work</div>
+    <h2 class="section-title">A process, not a one-off setup.</h2>
+    <ol class="steps">
+      <li><span class="step-n" aria-hidden="true">01</span><h3>Understand</h3><p>The application, the business requirements, the current infrastructure.</p></li>
+      <li><span class="step-n" aria-hidden="true">02</span><h3>Assess</h3><p>Risks, constraints and opportunities.</p></li>
+      <li><span class="step-n" aria-hidden="true">03</span><h3>Design</h3><p>The target architecture and an implementation plan.</p></li>
+      <li><span class="step-n" aria-hidden="true">04</span><h3>Build</h3><p>Infrastructure, automation and operational tooling.</p></li>
+      <li><span class="step-n" aria-hidden="true">05</span><h3>Validate</h3><p>Deployment, failure recovery, security and operational behaviour.</p></li>
+      <li><span class="step-n" aria-hidden="true">06</span><h3>Operate</h3><p>Ongoing maintenance, monitoring and support where required.</p></li>
+    </ol>
+    <p class="steps-note">Implementation is one step of six.</p>
+
+    <div class="ladder">
+      <h3 class="ladder-label">Where is your infrastructure today?</h3>
+      <ol class="ladder-steps">
+        <li><strong>Working</strong><span>The application runs.</span></li>
+        <li><strong>Production-ready</strong><span>Deployment, security, backups and monitoring are in place.</span></li>
+        <li><strong>Reliable</strong><span>Failures are visible, recoverable and rehearsed.</span></li>
+        <li><strong>Optimised</strong><span>Cost, performance and operations are continuously improved.</span></li>
+      </ol>
+      <p class="ladder-close">An assessment tells you which step you are on and what it takes to reach the next one.</p>
     </div>
   </div>
 </section>
@@ -970,214 +1342,171 @@ footer .container { flex-direction: column; gap: 1rem; text-align: center; }
   <div class="container">
     <div class="projects-header">
       <div>
-        <div class="section-label">Infrastructure Systems</div>
-        <p class="section-title">Production-ready systems designed for deployment reliability and operational stability.</p>
+        <div class="section-label">Engineering Systems</div>
+        <h2 class="section-title">Engineering systems.</h2>
+        <p class="section-desc projects-desc">Reference systems built and documented by Radiance to demonstrate how we design and operate production infrastructure. Each one is public on GitHub.</p>
       </div>
     </div>
 
-    <!-- ALWAYS VISIBLE: 3 most recent -->
     <div id="projects-visible">
-
-<!-- Project 09 — Webhook Delivery System -->
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-num"></div>
-          <div class="project-tags">
-            <span class="tag accent">FastAPI</span>
-            <span class="tag accent">Redis · RQ</span>
-            <span class="tag accent">Prometheus · Grafana</span>
-            <span class="tag">AWS VPC</span>
-            <span class="tag">Parameter Store</span>
-          </div>
-        </div>
+      <article class="project-card" id="sys-webhook">
         <h3>Webhook Delivery System</h3>
-        <p class="project-problem">
-          Problem: Webhook delivery requires guaranteed async processing, retry logic on failure, full audit trails, and operational visibility — none of which you get from a simple HTTP call inside an API handler. Built on a producer/consumer architecture with Redis as the message queue.
-        </p>
-        <ul class="project-bullets">
-          <li>Two-tier AWS architecture — application layer (FastAPI, RQ worker, Redis, Nginx) on Instance 1, data and observability layer (PostgreSQL, Prometheus, Grafana) on Instance 2, communicating exclusively over a private VPC network. No internal traffic crosses the public internet.</li>
-          <li>Decoupled delivery pipeline: API accepts the event, persists to PostgreSQL, and pushes a job to Redis — returning immediately. The RQ worker processes delivery asynchronously, retrying on failure. Every attempt is recorded. The API never blocks on delivery.</li>
-          <li>Runtime secrets fetched from AWS Parameter Store via IAM role at deploy time — no secrets on disk, no secrets in the repository. GitHub Secrets used only for CI/CD pipeline operations.</li>
-          <li>Four-job GitHub Actions pipeline: test → build → deploy-staging (auto) → deploy-production (manual approval gate). Single Docker image, different entrypoint commands for API and worker — one build artifact, two runtime roles.</li>
-          <li>Prometheus scrapes four targets (API, node-exporter, redis-exporter, self). Two active alert rules: target-down fires immediately, high error rate fires when 4xx/5xx ratio exceeds 5% over a 5-minute window.</li>
-        </ul>
-        <a href="https://github.com/Vimukthi-Randunu/webhook-delivery-system" target="_blank" class="project-link">View on GitHub →</a>
-      </div>
-
-      <!-- Project 08 -->
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-num"></div>
-          <div class="project-tags">
-            <span class="tag accent">FastAPI</span>
-            <span class="tag accent">Nginx</span>
-            <span class="tag">PostgreSQL</span>
-            <span class="tag">HTTPS</span>
-          </div>
+        <div class="sys-block"><h4>Challenge</h4><p>Webhook delivery requires guaranteed async processing, retry logic on failure, full audit trails, and operational visibility, none of which you get from a simple HTTP call inside an API handler. Built on a producer/consumer architecture with Redis as the message queue.</p></div>
+        <div class="sys-block"><h4>Approach</h4>
+          <ul class="project-bullets">
+            <li>Two-tier AWS architecture: application layer (FastAPI, RQ worker, Redis, Nginx) on Instance 1, data and observability layer (PostgreSQL, Prometheus, Grafana) on Instance 2, communicating exclusively over a private VPC network. No internal traffic crosses the public internet.</li>
+            <li>Decoupled delivery pipeline: API accepts the event, persists to PostgreSQL, and pushes a job to Redis, returning immediately. The RQ worker processes delivery asynchronously, retrying on failure. Every attempt is recorded. The API never blocks on delivery.</li>
+            <li>Runtime secrets fetched from AWS Parameter Store via IAM role at deploy time. No secrets on disk, no secrets in the repository. GitHub Secrets used only for CI/CD pipeline operations.</li>
+            <li>Four-job GitHub Actions pipeline: test, build, deploy-staging (auto), deploy-production (manual approval gate). Single Docker image, different entrypoint commands for API and worker: one build artifact, two runtime roles.</li>
+            <li>Prometheus scrapes four targets (API, node-exporter, redis-exporter, self). Two active alert rules: target-down fires immediately, high error rate fires when 4xx/5xx ratio exceeds 5% over a 5-minute window.</li>
+          </ul>
         </div>
-
+        <div class="sys-block"><h4>Infrastructure</h4><div class="project-tags"><span class="tag accent">FastAPI</span><span class="tag accent">Redis · RQ</span><span class="tag">Prometheus · Grafana</span><span class="tag">AWS VPC</span><span class="tag">Parameter Store</span></div></div>
+        <div class="sys-block"><h4>Outcome</h4><p>Demonstrates a private two-tier AWS design, asynchronous delivery with retries and audit records, and alerting on failures and error rates.</p><!-- DRAFT: needs owner approval (outcome line) --></div>
+        <a href="https://github.com/Vimukthi-Randunu/webhook-delivery-system" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+      </article>
+      <article class="project-card" id="sys-waitlist">
         <h3>Production Waitlist API Infrastructure</h3>
-
-        <p class="project-problem">
-          Problem: Production APIs need secure HTTPS access, reverse proxy routing, isolated environments, and reliable deployments. A single container exposed directly to the internet is not production-ready.
-        </p>
-
-        <ul class="project-bullets">
-          <li>Built a production-grade FastAPI system with PostgreSQL backend, Nginx reverse proxy, and HTTPS via Let's Encrypt</li>
-          <li>Nginx handles SSL termination and forwards traffic internally to FastAPI over a private Docker network — application and database containers are never publicly exposed</li>
-          <li>Full GitHub Actions pipeline with staging deployment, production approval gate, health checks, SHA-based rollback, and environment-specific Nginx configurations</li>
-        </ul>
-
-        <a href="https://github.com/Vimukthi-Randunu/production-waitlist-api" target="_blank" class="project-link">
-          View on GitHub →
-        </a>
-      </div>
-
-       <!-- Project 07 -->
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-num"></div>
-          <div class="project-tags">
-            <span class="tag accent">Docker</span>
-            <span class="tag accent">GitHub Actions</span>
-            <span class="tag">Python Flask</span>
-            <span class="tag">EC2</span>
-          </div>
+        <div class="sys-block"><h4>Challenge</h4><p>Production APIs need secure HTTPS access, reverse proxy routing, isolated environments, and reliable deployments. A single container exposed directly to the internet is not production-ready.</p></div>
+        <div class="sys-block"><h4>Approach</h4>
+          <ul class="project-bullets">
+            <li>Built a production-grade FastAPI system with PostgreSQL backend, Nginx reverse proxy, and HTTPS via Let&rsquo;s Encrypt.</li>
+            <li>Nginx handles SSL termination and forwards traffic internally to FastAPI over a private Docker network. Application and database containers are never publicly exposed.</li>
+            <li>Full GitHub Actions pipeline with staging deployment, production approval gate, health checks, SHA-based rollback, and environment-specific Nginx configurations.</li>
+          </ul>
         </div>
+        <div class="sys-block"><h4>Infrastructure</h4><div class="project-tags"><span class="tag accent">FastAPI</span><span class="tag accent">Nginx</span><span class="tag">PostgreSQL</span><span class="tag">HTTPS</span></div></div>
+        <div class="sys-block"><h4>Outcome</h4><p>Demonstrates HTTPS termination, network isolation between services, and a gated deployment pipeline with rollback.</p><!-- DRAFT: needs owner approval (outcome line) --></div>
+        <a href="https://github.com/Vimukthi-Randunu/production-waitlist-api" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+      </article>
+      <article class="project-card" id="sys-operationalizing">
         <h3>Operationalizing an Existing Application</h3>
-        <p class="project-problem">
-          Problem: Existing applications often lack deployment automation, environment isolation, and operational reliability. Production infrastructure must be designed around software that was not originally built for deployment workflows.
-        </p>
-        <ul class="project-bullets">
-          <li>Integrated a complete DevOps layer into an existing Flask warehouse management application — Docker, Docker Compose, GitHub Actions pipeline, staging and production environments, and deployment approval gates</li>
-          <li>Identified and resolved undocumented operational gaps including missing dependencies, incomplete database schema setup, and unmerged migration scripts</li>
-          <li>Implemented persistent Docker volume storage so application data survives container restarts and deployments reliably</li>
-        </ul>
-        <a href="https://github.com/Vimukthi-Randunu/Smart_ref" target="_blank" class="project-link">View on GitHub →</a>
-      </div>
-
+        <div class="sys-block"><h4>Challenge</h4><p>Existing applications often lack deployment automation, environment isolation, and operational reliability. Production infrastructure must be designed around software that was not originally built for deployment workflows.</p></div>
+        <div class="sys-block"><h4>Approach</h4>
+          <ul class="project-bullets">
+            <li>Integrated a complete DevOps layer into an existing Flask warehouse management application: Docker, Docker Compose, GitHub Actions pipeline, staging and production environments, and deployment approval gates.</li>
+            <li>Identified and resolved undocumented operational gaps including missing dependencies, incomplete database schema setup, and unmerged migration scripts.</li>
+            <li>Implemented persistent Docker volume storage so application data survives container restarts and deployments reliably.</li>
+          </ul>
+        </div>
+        <div class="sys-block"><h4>Infrastructure</h4><div class="project-tags"><span class="tag accent">Docker</span><span class="tag accent">GitHub Actions</span><span class="tag">Python Flask</span><span class="tag">EC2</span></div></div>
+        <div class="sys-block"><h4>Outcome</h4><p>Demonstrates taking an application that was not built for deployment to a repeatable, gated release process.</p><!-- DRAFT: needs owner approval (outcome line) --></div>
+        <a href="https://github.com/Vimukthi-Randunu/Smart_ref" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+      </article>
     </div>
 
-    <!-- HIDDEN BY DEFAULT: older projects expand downward -->
     <div class="projects-more" id="projects-more">
-
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-num"></div>
-          <div class="project-tags">
-            <span class="tag amber">Staging</span>
-            <span class="tag amber">Production</span>
-            <span class="tag">Approval Gates</span>
-            <span class="tag">GitHub Environments</span>
-          </div>
+      <article class="project-card">
+        <h3>Staging &amp; Production Environment Separation</h3>
+        <div class="sys-block"><h4>Challenge</h4><p>Deploying directly to production on every push means users are exposed to every bug. There is no safe place to test before it&rsquo;s live.</p></div>
+        <div class="sys-block"><h4>Approach</h4>
+          <ul class="project-bullets">
+            <li>Two isolated EC2 environments: staging deploys automatically on every push, production requires manual approval.</li>
+            <li>Single Docker image built once and deployed identically to both environments, so there is no drift between staging and production.</li>
+            <li>Per-environment secrets via GitHub Environments. Staging and production have completely isolated credentials.</li>
+          </ul>
         </div>
-        <h3>Staging & Production Environment Separation</h3>
-        <p class="project-problem">Problem: Deploying directly to production on every push means users are exposed to every bug. There is no safe place to test before it's live.</p>
-        <ul class="project-bullets">
-          <li>Two isolated EC2 environments — staging deploys automatically on every push, production requires manual approval</li>
-          <li>Single Docker image built once and deployed identically to both environments — no drift between staging and prod</li>
-          <li>Per-environment secrets via GitHub Environments — staging and production have completely isolated credentials</li>
-        </ul>
-        <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-6" target="_blank" class="project-link">View on GitHub →</a>
-      </div>
-
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-num"></div>
-          <div class="project-tags">
-            <span class="tag green">Docker Compose</span>
-            <span class="tag green">PostgreSQL</span>
-            <span class="tag">Flask API</span>
-            <span class="tag">EC2</span>
-          </div>
-        </div>
+        <div class="sys-block"><h4>Infrastructure</h4><div class="project-tags"><span class="tag accent">Staging</span><span class="tag accent">Production</span><span class="tag">Approval Gates</span><span class="tag">GitHub Environments</span></div></div>
+        <div class="sys-block"><h4>Outcome</h4><p>Demonstrates environment separation with approval gates and isolated credentials.</p><!-- DRAFT: needs owner approval (outcome line) --></div>
+        <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-6" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+      </article>
+      <article class="project-card">
         <h3>Multi-Container System with Database</h3>
-        <p class="project-problem">Problem: Real apps need databases. Running an app and a database together in production requires careful networking, configuration, and startup ordering.</p>
-        <ul class="project-bullets">
-          <li>Flask API and PostgreSQL running as separate containers connected via Docker Compose networking</li>
-          <li>Containers discover each other by service name — no hardcoded IPs, no fragile config</li>
-          <li>All secrets injected at runtime via environment variables, never stored in code or images</li>
-        </ul>
-        <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-5" target="_blank" class="project-link">View on GitHub →</a>
-      </div>
-
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-num"></div>
-          <div class="project-tags">
-            <span class="tag accent">Docker</span>
-            <span class="tag accent">GitHub Actions</span>
-            <span class="tag">Python Flask</span>
-            <span class="tag">EC2</span>
-          </div>
+        <div class="sys-block"><h4>Challenge</h4><p>Real apps need databases. Running an app and a database together in production requires careful networking, configuration, and startup ordering.</p></div>
+        <div class="sys-block"><h4>Approach</h4>
+          <ul class="project-bullets">
+            <li>Flask API and PostgreSQL running as separate containers connected via Docker Compose networking.</li>
+            <li>Containers discover each other by service name: no hardcoded IPs, no fragile config.</li>
+            <li>All secrets injected at runtime via environment variables, never stored in code or images.</li>
+          </ul>
         </div>
+        <div class="sys-block"><h4>Infrastructure</h4><div class="project-tags"><span class="tag accent">Docker Compose</span><span class="tag accent">PostgreSQL</span><span class="tag">Flask API</span><span class="tag">EC2</span></div></div>
+        <div class="sys-block"><h4>Outcome</h4><p>Demonstrates a multi-container service with runtime-injected secrets.</p><!-- DRAFT: needs owner approval (outcome line) --></div>
+        <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-5" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+      </article>
+      <article class="project-card" id="sys-docker-cicd">
         <h3>Docker-Based CI/CD Pipeline</h3>
-        <p class="project-problem">Problem: Deploying raw code to a server means the server must be configured for every app. One wrong dependency breaks everything.</p>
-        <ul class="project-bullets">
-          <li>Containerized a Python Flask app with Docker — server only needs Docker installed, nothing else</li>
-          <li>Three-job pipeline: tests run inside the container, image pushed to Docker Hub tagged with Git commit SHA, EC2 pulls and runs the image</li>
-          <li>Automatic rollback to previous image by SHA if health check fails after deploy</li>
-        </ul>
-        <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-4" target="_blank" class="project-link">View on GitHub →</a>
-      </div>
-
+        <div class="sys-block"><h4>Challenge</h4><p>Deploying raw code to a server means the server must be configured for every app. One wrong dependency breaks everything.</p></div>
+        <div class="sys-block"><h4>Approach</h4>
+          <ul class="project-bullets">
+            <li>Containerised a Python Flask app with Docker. The server only needs Docker installed, nothing else.</li>
+            <li>Three-job pipeline: tests run inside the container, image pushed to Docker Hub tagged with Git commit SHA, EC2 pulls and runs the image.</li>
+            <li>Automatic rollback to previous image by SHA if health check fails after deploy.</li>
+          </ul>
+        </div>
+        <div class="sys-block"><h4>Infrastructure</h4><div class="project-tags"><span class="tag accent">Docker</span><span class="tag accent">GitHub Actions</span><span class="tag">Python Flask</span><span class="tag">EC2</span></div></div>
+        <div class="sys-block"><h4>Outcome</h4><p>Demonstrates a containerised delivery pipeline with health checks and automatic rollback.</p><!-- DRAFT: needs owner approval (outcome line) --></div>
+        <a href="https://github.com/Vimukthi-Randunu/ci-cd-project-4" target="_blank" rel="noopener" class="project-link">View on GitHub →</a>
+      </article>
     </div>
 
     <div class="show-more-wrap">
       <button type="button" class="show-more-btn" id="showMoreBtn">Show more projects</button>
     </div>
+  </div>
+</section>
 
+<section id="technology">
+  <div class="container">
+    <div class="section-label">Technology</div>
+    <h2 class="section-title">Tools we work with.</h2>
+    <!-- DRAFT: needs owner approval (Technology heading; Terraform/Kubernetes kept per owner; "Also used" group) -->
+    <div class="tech-grid">
+      <div class="tech-group"><h3>Cloud</h3><div class="stack-pills"><span class="pill">AWS</span><span class="pill">VPC</span><span class="pill">IAM</span><span class="pill">EC2</span><span class="pill">Route 53</span><span class="pill">Parameter Store</span></div></div>
+      <div class="tech-group"><h3>Infrastructure</h3><div class="stack-pills"><span class="pill">Docker</span><span class="pill">Docker Compose</span><span class="pill">Linux</span><span class="pill">Nginx</span><span class="pill">Terraform</span><span class="pill">Kubernetes</span></div></div>
+      <div class="tech-group"><h3>Delivery</h3><div class="stack-pills"><span class="pill">GitHub Actions</span><span class="pill">CI/CD</span></div></div>
+      <div class="tech-group"><h3>Observability</h3><div class="stack-pills"><span class="pill">Prometheus</span><span class="pill">Grafana</span></div></div>
+      <div class="tech-group"><h3>Data</h3><div class="stack-pills"><span class="pill">PostgreSQL</span><span class="pill">Redis</span></div></div>
+      <div class="tech-group"><h3>Also used</h3><div class="stack-pills"><span class="pill">FastAPI</span><span class="pill">Bash</span></div></div>
+    </div>
   </div>
 </section>
 
 <section id="about">
   <div class="container">
     <div class="section-label">About</div>
-    <h2 class="section-title">Built from first principles</h2>
+    <h2 class="section-title">Built from first principles.</h2>
     <div class="about-grid">
       <div class="about-text">
-        <p>Radiance IT Solution focuses on deployment automation and operational reliability — building infrastructure systems that help teams ship software confidently through automated pipelines, containerized environments, and structured deployment workflows.</p>
+        <p>Radiance IT Solution focuses on deployment automation and operational reliability: building infrastructure systems that help teams ship software confidently through automated pipelines, containerized environments, and structured deployment workflows.</p>
         <p>Every system is approached with a focus on understanding why each component exists, not just making it function. The result is cleaner infrastructure, faster debugging, and more reliable delivery systems designed to handle operational failure gracefully.</p>
-        <p>The goal is simple: make software delivery reliable, repeatable, and scalable for teams that have more important things to focus on than deployment complexity.</p>
+        <p>The goal is simple: make software delivery reliable and repeatable for teams that have more important things to focus on than deployment complexity.</p>
+        <!-- DRAFT: needs owner approval (About text edited per blueprint: "scalable" removed) -->
       </div>
       <div class="about-right">
         <div class="about-name">W.K.V.P Randunu</div>
         <div class="about-role">DevOps Engineer</div>
-        <div class="stack-label">Tools & Technologies</div>
-        <div class="stack-pills">
-          <span class="pill">Docker</span>
-          <span class="pill">Docker Compose</span>
-          <span class="pill">GitHub Actions</span>
-          <span class="pill">AWS EC2</span>
-          <span class="pill">AWS VPC</span>
-          <span class="pill">AWS IAM</span>
-          <span class="pill">Route 53</span>
-          <span class="pill">Parameter Store</span>
-          <span class="pill">Nginx</span>
-          <span class="pill">PostgreSQL</span>
-          <span class="pill">Redis</span>
-          <span class="pill">Prometheus</span>
-          <span class="pill">Grafana</span>
-          <span class="pill">FastAPI</span>
-          <span class="pill">Linux</span>
-          <span class="pill">Bash</span>
-          <span class="pill">Kubernetes</span>
-          <span class="pill">Terraform</span>
-        </div>
+        <!-- PLACEHOLDER: About photo (owner decides, blueprint section 8.7) -->
       </div>
     </div>
+  </div>
+</section>
+
+<section id="assessment">
+  <div class="container assessment-band">
+    <h2 class="section-title">Not sure what&rsquo;s wrong with your infrastructure?</h2>
+    <p class="assessment-sub">Start with an infrastructure assessment.</p>
+    <ul class="assessment-items">
+      <li>Security risks</li>
+      <li>Reliability gaps</li>
+      <li>Deployment problems</li>
+      <li>Cloud cost issues</li>
+      <li>Backup and recovery weaknesses</li>
+      <li>Operational blind spots</li>
+    </ul>
+    <!-- PLACEHOLDER: assessment scope, duration and price are undecided (blueprint section 8.1); site stays price-free -->
+    <a href="mailto:wkvp.randunu@gmail.com?subject=Infrastructure%20assessment%20request" class="btn-primary">Request an assessment</a>
   </div>
 </section>
 
 <section id="contact">
   <div class="container">
     <div class="section-label">Contact</div>
-    <h2 class="section-title">Let's talk about your system</h2>
+    <h2 class="section-title">Let&rsquo;s talk about your infrastructure.</h2>
     <div class="contact-box">
-      <h3>Ready to automate your deployments?</h3>
-      <p>If your team is deploying manually, has no testing pipeline, or wants to stop worrying about broken deploys — let's have a conversation.</p>
+      <p>Tell us what you&rsquo;re running and what&rsquo;s worrying you. We&rsquo;ll reply with an honest view of whether and how we can help.</p>
       <a href="mailto:wkvp.randunu@gmail.com" class="contact-email">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         wkvp.randunu@gmail.com
       </a>
     </div>
@@ -1186,34 +1515,54 @@ footer .container { flex-direction: column; gap: 1rem; text-align: center; }
 
 <footer>
   <div class="container">
-    <p>© 2026 Radiance IT Solution · W.K.V.P Randunu · Radianceits.com</p>
+    <p>© 2026 Radiance IT Solution · W.K.V.P Randunu · radianceits.com</p>
     <div class="footer-social">
-      <a href="https://x.com/VimukthiRandunu" target="_blank" class="social-link" aria-label="X / Twitter">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <a href="https://x.com/VimukthiRandunu" target="_blank" class="social-link" rel="noopener" aria-label="X / Twitter">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
       </a>
       <a href="https://www.linkedin.com/in/vimukthi-randunu/" target="_blank" class="social-link" aria-label="LinkedIn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
       </a>
     </div>
   </div>
 </footer>
 
 <script>
-  // Scroll restore
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  window.onbeforeunload = () => window.scrollTo(0, 0);
-  window.onload = () => window.scrollTo(0, 0);
-
   // Navbar scroll state
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
   }, { passive: true });
 
+  // Mobile menu
+  const navToggle = document.getElementById('navToggle');
+  const navLinks  = document.getElementById('navLinks');
+  function setMenu(openMenu) {
+    navbar.classList.toggle('menu-open', openMenu);
+    navToggle.setAttribute('aria-expanded', String(openMenu));
+    navToggle.setAttribute('aria-label', openMenu ? 'Close menu' : 'Open menu');
+  }
+  navToggle.addEventListener('click', () => setMenu(navToggle.getAttribute('aria-expanded') !== 'true'));
+  navLinks.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') { setMenu(false); navToggle.focus(); }
+  });
+
   // Show more projects
   const btn  = document.getElementById('showMoreBtn');
   const more = document.getElementById('projects-more');
   let open = false;
+
+  function revealTarget() {
+    const t = location.hash && document.querySelector(location.hash);
+    if (t && more.contains(t) && !open) { open = true; more.classList.add('open'); btn.textContent = 'Show less'; }
+  }
+  document.querySelectorAll('.practice-link').forEach(a => a.addEventListener('click', () => {
+    const t = document.getElementById(a.dataset.target);
+    if (t && more.contains(t) && !open) { open = true; more.classList.add('open'); btn.textContent = 'Show less'; }
+  }));
+  window.addEventListener('hashchange', revealTarget);
+  revealTarget();
 
   btn.addEventListener('click', function() {
     open = !open;
