@@ -260,56 +260,78 @@ nav.scrolled {
   display: flex;
   gap: 0.9rem;
   flex-wrap: wrap;
-  margin-bottom: 3.5rem;
 }
 
-/* ─── STAT ROW ───────────────────────────────────────────────── */
-.stat-row {
-  display: flex;
-  align-items: flex-start;
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.hero-layout h1 { font-size: clamp(2.6rem, 4.6vw, 4.8rem); line-height: 1; margin-bottom: 1.8rem; }
+.hero-layout .hero-sub { color: var(--text); font-size: 1.2rem; line-height: 1.6; margin-bottom: 1rem; }
+.hero-support { max-width: 560px; margin-bottom: 2.6rem; color: var(--text-muted); }
+
+.hero-visual { min-width: 0; }
+
+.arch { width: 100%; height: auto; display: block; }
+.arch-lines path {
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 6;
+  animation: flow 1.2s linear infinite;
+}
+.arch-nodes rect { fill: var(--surface-2); stroke: var(--border-strong); stroke-width: 1; }
+.arch-main rect { stroke: var(--accent); }
+.arch-nodes text {
+  fill: var(--text);
+  font-family: var(--font);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+.arch-caps text {
+  fill: var(--text-muted);
+  font-family: var(--font);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-anchor: middle;
+}
+@keyframes flow { to { stroke-dashoffset: -12; } }
+
+/* ─── PROBLEM ────────────────────────────────────────────────── */
+#problem { border-top: 1px solid var(--border); padding: 5rem 0; }
+.problem-sub { margin-bottom: 3rem; font-size: 1.05rem; color: var(--text-soft); }
+.problem-lead { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent-light); margin-bottom: 1.6rem; }
+.problem-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 0;
   border-top: 1px solid var(--border);
-  padding-top: 3rem;
-  max-width: 640px;
+  margin-bottom: 2.4rem;
 }
-
-.stat {
-  flex: 1;
-  padding-right: 2.5rem;
-  border-right: 1px solid var(--border);
+.problem-list li {
+  color: var(--text-soft);
+  line-height: 1.7;
+  padding: 1.4rem 2rem 1.4rem 1.4rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
 }
-
-.stat:last-child {
-  padding-right: 0;
-  border-right: none;
-  padding-left: 2.5rem;
+.problem-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 2.05rem;
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  transform: rotate(45deg);
 }
-
-.stat:not(:first-child):not(:last-child) {
-  padding-left: 2.5rem;
-}
-
-.stat-num {
-  font-size: 2.6rem;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  color: var(--text);
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-
-.stat-num span {
-  font-size: 1.6rem;
-  color: var(--accent);
-}
-
-.stat-label {
-  font-size: 0.74rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
+.problem-close { margin-bottom: 1.8rem; color: var(--text); }
 
 /* ─── BUTTONS ────────────────────────────────────────────────── */
 .btn-primary,
@@ -332,14 +354,14 @@ nav.scrolled {
 }
 
 .btn-primary {
-  background: var(--text);
+  background: var(--accent);
   color: #050506;
-  border: 1px solid var(--text);
+  border: 1px solid var(--accent);
 }
 
 .btn-primary:hover {
-  background: transparent;
-  color: var(--text);
+  background: var(--accent-light);
+  border-color: var(--accent-light);
 }
 
 .btn-ghost {
@@ -907,6 +929,10 @@ nav.menu-open .nav-toggle-bar::after  { transform: translateY(-6px) rotate(-45de
   .nav-links a { padding: 1rem 0; border-bottom: 1px solid var(--border); }
   .nav-links .nav-cta { margin-top: 1rem; text-align: center; border: 1px solid var(--accent); background: var(--accent); color: #050506; }
 
+  .hero-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .problem-list { grid-template-columns: 1fr; }
+  #problem { padding: 4rem 0; }
+
   .services-grid {
     grid-template-columns: 1fr;
   }
@@ -925,12 +951,6 @@ nav.menu-open .nav-toggle-bar::after  { transform: translateY(-6px) rotate(-45de
   }
 
   .project-tags { justify-content: flex-start; }
-
-  .stat-row {
-    gap: 0;
-  }
-
-  .stat-num { font-size: 2rem; }
 
   .about-grid { grid-template-columns: 1fr; gap: 3rem; }
 
@@ -976,34 +996,69 @@ footer .container { flex-direction: column; gap: 1rem; text-align: center; }
 </nav>
 
 <section id="hero">
-  <div class="hero-inner">
-    <div class="hero-eyebrow fade-up">DevOps & Deployment Automation</div>
-    <h1 class="fade-up-2">
-      Infrastructure designed<br>
-      <span class="highlight">for safe deployments</span><br>
-      <span class="highlight2">and reliable operations.</span>
-    </h1>
-    <p class="hero-sub fade-up-3">
-      Deployment infrastructure and operational workflows designed for safe, consistent software releases.
-    </p>
-    <div class="hero-actions fade-up-4">
-      <a href="#contact" class="btn-primary">Start a conversation</a>
-      <!--<a href="#projects" class="btn-ghost">See my work</a> -->
-    </div>
-    <div class="stat-row fade-up-4">
-      <div class="stat">
-        <div class="stat-num">9<span>+</span></div>
-        <div class="stat-label">Production-ready systems built</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">0</div>
-        <div class="stat-label">Manual deploys needed</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">100<span>%</span></div>
-        <div class="stat-label">Automated rollback coverage</div>
+  <div class="hero-inner hero-layout">
+    <div class="hero-copy">
+      <div class="hero-eyebrow fade-up">Cloud Infrastructure &amp; DevOps Engineering</div>
+      <h1 class="fade-up-2">
+        Cloud infrastructure <span class="highlight2">built for reliable production.</span>
+      </h1>
+      <p class="hero-sub fade-up-3">
+        We design, automate and operate the infrastructure behind modern software.
+      </p>
+      <p class="hero-support fade-up-3">
+        For agencies, product teams and growing businesses that need dependable production without building an infrastructure team.
+      </p>
+      <div class="hero-actions fade-up-4">
+        <a href="#contact" class="btn-primary">Discuss an infrastructure project</a>
+        <a href="#services" class="btn-ghost">Explore our services</a>
       </div>
     </div>
+    <div class="hero-visual fade-up-4">
+      <svg class="arch" viewBox="0 0 560 330" role="img" aria-labelledby="archTitle archDesc">
+        <title id="archTitle">Production architecture overview</title>
+        <desc id="archDesc">Users reach a load balancer running Nginx, which forwards traffic to the application and then to the database. A CI/CD pipeline deploys to the application, and a monitoring system watches it.</desc>
+        <!-- DRAFT: needs owner approval (diagram alt text) -->
+        <g class="arch-lines" fill="none">
+          <path d="M110 165 H150"/>
+          <path d="M250 165 H290"/>
+          <path d="M390 165 H430"/>
+          <path d="M340 75 V143"/>
+          <path d="M340 255 V187"/>
+        </g>
+        <g class="arch-nodes">
+          <g><rect x="10"  y="143" width="100" height="44"/><text x="60"  y="170">Users</text></g>
+          <g><rect x="150" y="143" width="100" height="44"/><text x="200" y="170">Nginx</text></g>
+          <g class="arch-main"><rect x="290" y="143" width="100" height="44"/><text x="340" y="170">Application</text></g>
+          <g><rect x="430" y="143" width="100" height="44"/><text x="480" y="170">Database</text></g>
+          <g><rect x="290" y="31"  width="100" height="44"/><text x="340" y="58">CI/CD</text></g>
+          <g><rect x="290" y="255" width="100" height="44"/><text x="340" y="282">Monitoring</text></g>
+        </g>
+        <g class="arch-caps">
+          <text x="200" y="125">Load balancer</text>
+          <text x="440" y="58" text-anchor="start">Deploy path</text>
+          <text x="440" y="282" text-anchor="start">Metrics and alerts</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="container">
+    <div class="section-label">The problem</div>
+    <h2 class="section-title">Your application is only as reliable as the infrastructure running it.</h2>
+    <p class="section-desc problem-sub">We help teams move from &ldquo;the application works&rdquo; to &ldquo;the application is ready for production.&rdquo;</p>
+    <h3 class="problem-lead">When teams come to us</h3>
+    <ul class="problem-list">
+      <li>Your cloud bill is growing faster than your usage.</li>
+      <li>A customer or auditor is asking about security, data location or recovery, and you can&rsquo;t answer with confidence.</li>
+      <li>Releases feel risky, and outages take too long to explain.</li>
+      <li>The platform you started on no longer fits what you&rsquo;re building.</li>
+      <li>The person who set up production has moved on, or is stretched thin.</li>
+      <li>You&rsquo;re about to scale and aren&rsquo;t sure what will break first.</li>
+    </ul>
+    <p class="problem-close">If one of these sounds familiar, start with an infrastructure assessment.</p>
+    <a href="mailto:wkvp.randunu@gmail.com?subject=Infrastructure%20assessment%20request" class="btn-primary">Request an assessment</a>
   </div>
 </section>
 
