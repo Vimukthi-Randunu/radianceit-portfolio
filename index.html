@@ -500,6 +500,48 @@ nav.scrolled {
 
 .services-note { max-width: 900px; font-size: 0.82rem; color: var(--text-muted); line-height: 1.7; margin-top: 0.5rem; }
 
+/* ─── ALONGSIDE / WHO WE HELP / HOW WE WORK ──────────────────── */
+#alongside, #who-we-help, #how-we-work { border-top: 1px solid var(--border); padding: 5rem 0; }
+.alongside-text { max-width: 720px; font-size: 1.1rem; color: var(--text-soft); }
+
+.help-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+.help-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border-mid);
+  padding: 2rem;
+  transition: transform var(--t), border-color var(--t);
+}
+.help-card:hover { transform: translateY(-3px); border-color: var(--border-strong); }
+.help-card h3 { font-size: 1.2rem; margin-bottom: 0.9rem; }
+.help-card p { font-size: 0.95rem; line-height: 1.75; }
+
+.steps { list-style: none; display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.2rem; margin-top: 3rem; }
+.steps li { border-top: 1px solid var(--accent); padding-top: 1.2rem; }
+.step-n { display: block; color: var(--accent-light); font-size: 0.74rem; letter-spacing: 0.16em; margin-bottom: 0.9rem; }
+.steps h3 { font-size: 1.1rem; margin-bottom: 0.7rem; }
+.steps p { font-size: 0.88rem; line-height: 1.65; color: var(--text-muted); }
+.steps-note { margin-top: 2rem; color: var(--text); }
+
+.ladder { margin-top: 4.5rem; padding-top: 3rem; border-top: 1px solid var(--border); }
+.ladder-label { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent-light); margin-bottom: 1.8rem; }
+.ladder-steps { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; align-items: end; }
+.ladder-steps li {
+  background: var(--surface-2);
+  border: 1px solid var(--border-mid);
+  border-top: 2px solid var(--accent);
+  padding: 1.2rem 1.2rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.ladder-steps li:nth-child(1) { min-height: 120px; }
+.ladder-steps li:nth-child(2) { min-height: 160px; }
+.ladder-steps li:nth-child(3) { min-height: 200px; }
+.ladder-steps li:nth-child(4) { min-height: 240px; }
+.ladder-steps strong { font-size: 1.05rem; letter-spacing: -0.01em; }
+.ladder-steps span { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+.ladder-close { margin-top: 2rem; color: var(--text); max-width: 640px; }
+
 /* ─── PROJECTS ───────────────────────────────────────────────── */
 #projects { padding-bottom: 0; }
 
@@ -914,6 +956,12 @@ nav.menu-open .nav-toggle-bar::after  { transform: translateY(-6px) rotate(-45de
   }
 }
 
+@media (max-width: 1024px) {
+  .steps { grid-template-columns: repeat(3, 1fr); }
+  .ladder-steps { grid-template-columns: repeat(2, 1fr); }
+  .ladder-steps li:nth-child(n) { min-height: 0; }
+}
+
 @media (max-width: 768px) {
   :root { --gutter: 1.6rem; }
 
@@ -947,6 +995,11 @@ nav.menu-open .nav-toggle-bar::after  { transform: translateY(-6px) rotate(-45de
   .problem-list { grid-template-columns: 1fr; }
   #problem { padding: 4rem 0; }
 
+  #alongside, #who-we-help, #how-we-work { padding: 4rem 0; }
+  .help-grid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; gap: 1.6rem; }
+  .ladder-steps { grid-template-columns: 1fr; }
+  .ladder-steps li:nth-child(n) { min-height: 0; }
   .svc { grid-template-columns: 40px 1fr; gap: 1.1rem; }
   .svc-num { width: 40px; height: 40px; font-size: 0.75rem; }
   .svc:not(:last-child)::before { left: 19px; top: 40px; }
@@ -1191,6 +1244,64 @@ footer .container { flex-direction: column; gap: 1rem; text-align: center; }
       </li>
     </ol>
     <p class="services-note">We can also build custom applications and APIs when infrastructure and application engineering need to be delivered together.</p>
+  </div>
+</section>
+
+<section id="alongside">
+  <div class="container">
+    <h2 class="section-title">Work with your existing engineering team.</h2>
+    <p class="alongside-text">Radiance doesn&rsquo;t replace your developers. We work alongside them on the infrastructure layer (design, automation and operations), so your engineers can stay focused on the product.</p>
+  </div>
+</section>
+
+<section id="who-we-help">
+  <div class="container">
+    <div class="section-label">Who we help</div>
+    <div class="help-grid">
+      <div class="help-card">
+        <h3>Software agencies</h3>
+        <p>An infrastructure partner for client projects that need cloud deployment, CI/CD, production environments or ongoing support.</p>
+      </div>
+      <div class="help-card">
+        <h3>Product and SaaS teams</h3>
+        <p>Infrastructure and reliability support as your product moves from development into production and begins to scale.</p>
+      </div>
+      <div class="help-card">
+        <h3>Founders and teams building with AI</h3>
+        <p>Applications built quickly with AI tools often work in a demo and strain under real users, real data and real security expectations. We take them from working to production-ready.</p>
+      </div>
+      <div class="help-card">
+        <h3>Growing businesses</h3>
+        <p>Cloud infrastructure without the cost of a full internal infrastructure team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how-we-work">
+  <div class="container">
+    <div class="section-label">How we work</div>
+    <h2 class="section-title">A process, not a one-off setup.</h2>
+    <ol class="steps">
+      <li><span class="step-n" aria-hidden="true">01</span><h3>Understand</h3><p>The application, the business requirements, the current infrastructure.</p></li>
+      <li><span class="step-n" aria-hidden="true">02</span><h3>Assess</h3><p>Risks, constraints and opportunities.</p></li>
+      <li><span class="step-n" aria-hidden="true">03</span><h3>Design</h3><p>The target architecture and an implementation plan.</p></li>
+      <li><span class="step-n" aria-hidden="true">04</span><h3>Build</h3><p>Infrastructure, automation and operational tooling.</p></li>
+      <li><span class="step-n" aria-hidden="true">05</span><h3>Validate</h3><p>Deployment, failure recovery, security and operational behaviour.</p></li>
+      <li><span class="step-n" aria-hidden="true">06</span><h3>Operate</h3><p>Ongoing maintenance, monitoring and support where required.</p></li>
+    </ol>
+    <p class="steps-note">Implementation is one step of six.</p>
+
+    <div class="ladder">
+      <h3 class="ladder-label">Where is your infrastructure today?</h3>
+      <ol class="ladder-steps">
+        <li><strong>Working</strong><span>The application runs.</span></li>
+        <li><strong>Production-ready</strong><span>Deployment, security, backups and monitoring are in place.</span></li>
+        <li><strong>Reliable</strong><span>Failures are visible, recoverable and rehearsed.</span></li>
+        <li><strong>Optimised</strong><span>Cost, performance and operations are continuously improved.</span></li>
+      </ol>
+      <p class="ladder-close">An assessment tells you which step you are on and what it takes to reach the next one.</p>
+    </div>
   </div>
 </section>
 
