@@ -300,6 +300,7 @@ nav.scrolled {
   text-transform: uppercase;
   text-anchor: middle;
 }
+.arch-caps .cap-start { text-anchor: start; }
 @keyframes flow { to { stroke-dashoffset: -12; } }
 
 /* ─── PROBLEM ────────────────────────────────────────────────── */
@@ -1133,8 +1134,8 @@ footer .container { flex-direction: column; gap: 1rem; text-align: center; }
         </g>
         <g class="arch-caps">
           <text x="200" y="125">Load balancer</text>
-          <text x="440" y="58" text-anchor="start">Deploy path</text>
-          <text x="440" y="282" text-anchor="start">Metrics and alerts</text>
+          <text class="cap-start" x="408" y="58">Deploy path</text>
+          <text class="cap-start" x="408" y="282">Metrics and alerts</text>
         </g>
       </svg>
     </div>
